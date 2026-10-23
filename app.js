@@ -143,6 +143,121 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
+  // CELEBRATION & SPARKLES ENGINE (Powered by Canvas Confetti)
+  // =========================================================================
+  function triggerSparkles(x = 0.5, y = 0.5) {
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 32,
+        spread: 60,
+        origin: { x, y },
+        colors: ['#8b5cf6', '#06b6d4', '#ec4899', '#f59e0b', '#10b981'],
+        disableForReducedMotion: true
+      });
+    }
+  }
+
+  function triggerMiniSparkles(x = 0.5, y = 0.5) {
+    triggerSparkles(x, y);
+  }
+
+  function triggerConfettiCelebration() {
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 80,
+        spread: 100,
+        origin: { y: 0.6 },
+        colors: ['#8b5cf6', '#06b6d4', '#ec4899', '#f59e0b', '#34d399']
+      });
+    }
+  }
+
+  // =========================================================================
+  // 2B. REAL AI SPEECH SYNTHESIS ENGINE (Web Speech API)
+  // =========================================================================
+  let cachedVoices = [];
+
+  function loadCachedVoices() {
+    if ('speechSynthesis' in window) {
+      cachedVoices = window.speechSynthesis.getVoices();
+    }
+  }
+  if ('speechSynthesis' in window) {
+    loadCachedVoices();
+    window.speechSynthesis.onvoiceschanged = loadCachedVoices;
+  }
+
+  function getBestVoice(gender = 'female') {
+    if (!('speechSynthesis' in window)) return null;
+    if (cachedVoices.length === 0) loadCachedVoices();
+    const englishVoices = cachedVoices.filter(v => v.lang.startsWith('en'));
+    if (englishVoices.length === 0) return cachedVoices[0] || null;
+
+    if (gender === 'female') {
+      const preferred = englishVoices.find(v => 
+        v.name.includes('Google') || 
+        v.name.includes('Natural') || 
+        v.name.includes('Samantha') || 
+        v.name.includes('Jenny') || 
+        v.name.includes('Zira') ||
+        v.name.includes('Female')
+      );
+      return preferred || englishVoices[0];
+    } else {
+      const preferred = englishVoices.find(v => 
+        v.name.includes('David') || 
+        v.name.includes('Guy') || 
+        v.name.includes('Male')
+      );
+      return preferred || englishVoices[0];
+    }
+  }
+
+  function speakAIVoice(text, options = {}) {
+    if (!('speechSynthesis' in window)) {
+      console.warn('Speech synthesis not supported in this browser.');
+      return;
+    }
+    if (!soundEnabled) {
+      console.log('Sound is muted.');
+      return;
+    }
+
+    try {
+      window.speechSynthesis.cancel(); // Stop pending speech cleanly
+
+      const cleanText = text.replace(/<[^>]*>?/gm, '').replace(/["']/g, '');
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+
+      const voice = getBestVoice(options.voiceType || 'female');
+      if (voice) utterance.voice = voice;
+
+      utterance.pitch = options.pitch !== undefined ? options.pitch : 1.15;
+      utterance.rate = options.rate !== undefined ? options.rate : 1.0;
+      utterance.volume = options.volume !== undefined ? options.volume : 1.0;
+
+      utterance.onstart = () => {
+        if (typeof waveIntensity !== 'undefined') waveIntensity = 2.4;
+        if (options.onStart) options.onStart();
+      };
+
+      utterance.onend = () => {
+        if (typeof waveIntensity !== 'undefined') waveIntensity = 0.5;
+        if (options.onEnd) options.onEnd();
+      };
+
+      utterance.onerror = () => {
+        if (typeof waveIntensity !== 'undefined') waveIntensity = 0.5;
+        if (options.onEnd) options.onEnd();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    } catch (e) {
+      console.warn('Speech synthesis error:', e);
+    }
+  }
+
+  // =========================================================================
   // 3. 4-THEME CREATIVE PALETTE CONTROLLER
   // =========================================================================
   const themeSelectorWrap = document.getElementById('theme-selector-wrap');
@@ -250,62 +365,182 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // 5. IN-HERO 3D COCKPIT LIVE EQUALIZER & RUN BUTTON
+  // 5. THE 3D INTERACTIVE KODA BESTIE CONTROLLER (SHOWSTOPPER FRIENDLY AI)
   // =========================================================================
-  const cockpitWaveCanvas = document.getElementById('cockpit-waveform-canvas');
-  if (cockpitWaveCanvas) {
-    const cCtx = cockpitWaveCanvas.getContext('2d');
-    let cOffset = 0;
+  const kodaMascot = document.getElementById('koda-mascot');
+  const kodaPokeBtn = document.getElementById('koda-poke-btn');
+  const kodaSpeechText = document.getElementById('koda-speech-text');
+  const kodaSpeechBubble = document.getElementById('koda-speech-bubble');
+  const kodaMoodButtons = document.querySelectorAll('.btn-mood-reaction');
+  const floatingKodaBtn = document.getElementById('floating-koda-btn');
+  const floatingKodaTooltip = document.getElementById('floating-koda-tooltip');
 
-    function resizeCockpitWave() {
-      cockpitWaveCanvas.width = cockpitWaveCanvas.parentElement.clientWidth;
-      cockpitWaveCanvas.height = 54;
-    }
-    resizeCockpitWave();
-    window.addEventListener('resize', resizeCockpitWave);
+  // Friendly speech dialogues for Koda
+  const kodaDialogues = {
+    greet: [
+      "Hey there, champion! 🚀 I'm Koda, your personal AI placement companion. Let's make interview prep fun, friendly, and stress-free!",
+      "Welcome to your dream engineering sprint! ✨ Which company are we conquering today? Zoho, Google, or Microsoft?",
+      "Hello friend! Remember: Every master engineer started by solving their first tricky while-loop. You're already ahead!"
+    ],
+    tip: {
+      zoho: "💡 Zoho Round 2 Secret: Focus on matrix spiral traversals & string pointer manipulations. Avoid <code>split()</code> or helper libraries — Zoho interviewers value pure algorithmic fundamentals!",
+      google: "💡 Google L3/L4 Secret: Always ask 2 clarifying edge-case questions before coding. State your Big-O time and space tradeoffs out loud!",
+      microsoft: "💡 Microsoft SWE Secret: Write clean, self-documenting code with clear variable names and handle null/empty boundaries gracefully.",
+      amazon: "💡 Amazon SDE Secret: Structure behavioral stories with STAR (Situation, Task, Action, Result) and weave in 'Customer Obsession' and 'Ownership'!",
+      uber: "💡 Uber Backend Secret: Brush up on concurrency primitives, geospatial hashes (Quadtrees), and idempotent distributed APIs!"
+    },
+    hype: [
+      "YOU'VE GOT THIS! 🌟 48,500+ students started right where you are and cracked their dream offers. You are brilliant, resilient, and 100% capable!",
+      "Believe in your logic! 💥 Every bug you debug is a step closer to that ₹30+ LPA offer letter. Let's make it happen!",
+      "You + Koda = Unbeatable! 🏆 Keep your head held high, take a deep breath, and let's conquer today's challenge together!"
+    ],
+    test: [
+      "Quick Quiz Time! 🧠 In an in-place matrix transposition, what is the auxiliary space complexity? (Hint: It's O(1)!). Scroll down to test your speed in the Crucible!",
+      "Speed Challenge! ⚡ Can you detect a cycle in a directed graph using DFS in under 4 minutes? Jump to the Round 2 arena below to find out!"
+    ],
+    poke: [
+      "Eeee! That tickles! 😄 Ready to write some elegant code today?",
+      "High five! 🖐️ Keep that energetic vibe going, you're doing fantastic!",
+      "Boop! 🤖 My neural cores are 100% warmed up to help you land that offer!",
+      "I believe in you! Let's solve a tricky puzzle together right now!"
+    ]
+  };
 
-    function drawCockpitWave() {
-      requestAnimationFrame(drawCockpitWave);
-      cCtx.clearRect(0, 0, cockpitWaveCanvas.width, cockpitWaveCanvas.height);
+  let pokeIndex = 0;
 
-      const w = cockpitWaveCanvas.width;
-      const h = cockpitWaveCanvas.height;
-      const centerY = h / 2;
+  const kodaListenBtn = document.getElementById('koda-listen-btn');
+  const kodaVoiceIcon = document.getElementById('koda-voice-icon');
+  const kodaVoiceBtnLabel = document.getElementById('koda-voice-btn-label');
 
-      const bars = 36;
-      const bWidth = w / bars;
-
-      for (let i = 0; i < bars; i++) {
-        const x = i * bWidth;
-        const s = Math.sin((i * 0.35) + cOffset);
-        const c = Math.cos((i * 0.2) - cOffset * 0.9);
-        const barHeight = Math.abs(s * c) * (h * 0.75) + 4;
-
-        cCtx.fillStyle = 'rgba(6, 182, 212, 0.75)';
-        cCtx.fillRect(x + 2, centerY - barHeight / 2, bWidth - 4, barHeight);
+  function speakCurrentKodaText() {
+    if (!kodaSpeechText) return;
+    playSound('click');
+    speakAIVoice(kodaSpeechText.textContent, {
+      pitch: 1.25,
+      rate: 1.05,
+      voiceType: 'female',
+      onStart: () => {
+        if (kodaListenBtn) kodaListenBtn.classList.add('speaking');
+        if (kodaVoiceBtnLabel) kodaVoiceBtnLabel.textContent = 'Speaking...';
+        if (kodaMascot) kodaMascot.style.filter = 'drop-shadow(0 0 25px rgba(6, 182, 212, 0.8))';
+      },
+      onEnd: () => {
+        if (kodaListenBtn) kodaListenBtn.classList.remove('speaking');
+        if (kodaVoiceBtnLabel) kodaVoiceBtnLabel.textContent = 'Hear Koda Speak';
+        if (kodaMascot) kodaMascot.style.filter = '';
       }
-      cOffset += 0.09;
-    }
-    drawCockpitWave();
-  }
-
-  // In-Hero Code Execution Button
-  const cockpitRunBtn = document.getElementById('cockpit-run-btn');
-  const cockpitExecOutput = document.getElementById('cockpit-exec-output');
-  if (cockpitRunBtn && cockpitExecOutput) {
-    cockpitRunBtn.addEventListener('click', () => {
-      playSound('click');
-      cockpitExecOutput.innerHTML = `<span><i data-lucide="loader"></i> Compiling kernel AST...</span><strong style="color:var(--accent-amber);">Running</strong>`;
-      lucide.createIcons();
-
-      setTimeout(() => {
-        playSound('success');
-        triggerMiniSparkles();
-        cockpitExecOutput.innerHTML = `<span><i data-lucide="check-circle-2"></i> All Checks Passed (O(1) space)</span><strong style="color:var(--accent-emerald);">MATCH: 99.4% [OFFER READY]</strong>`;
-        lucide.createIcons();
-      }, 700);
     });
   }
+
+  if (kodaListenBtn) {
+    kodaListenBtn.addEventListener('click', speakCurrentKodaText);
+  }
+
+  function setKodaSpeech(htmlText, animate = true, speak = true) {
+    if (!kodaSpeechText) return;
+    if (animate && kodaSpeechBubble) {
+      kodaSpeechBubble.style.transform = 'scale(0.97)';
+      kodaSpeechBubble.style.opacity = '0.7';
+      setTimeout(() => {
+        kodaSpeechText.innerHTML = htmlText;
+        kodaSpeechBubble.style.transform = 'scale(1)';
+        kodaSpeechBubble.style.opacity = '1';
+        if (speak) {
+          setTimeout(speakCurrentKodaText, 100);
+        }
+      }, 150);
+    } else {
+      kodaSpeechText.innerHTML = htmlText;
+      if (speak) {
+        setTimeout(speakCurrentKodaText, 100);
+      }
+    }
+  }
+
+  function pokeKoda(e) {
+    playSound('pop');
+    triggerMiniSparkles(0.7, 0.4);
+    if (kodaMascot) {
+      kodaMascot.style.transform = 'scale(1.12) rotate(4deg)';
+      setTimeout(() => {
+        kodaMascot.style.transform = '';
+      }, 350);
+    }
+    const lines = kodaDialogues.poke;
+    const line = lines[pokeIndex % lines.length];
+    pokeIndex++;
+    setKodaSpeech(`"${line}"`, true, true);
+  }
+
+  if (kodaMascot) kodaMascot.addEventListener('click', pokeKoda);
+  if (kodaPokeBtn) kodaPokeBtn.addEventListener('click', pokeKoda);
+
+  // Mood reaction button clicks
+  kodaMoodButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      kodaMoodButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const mood = btn.dataset.mood;
+      playSound('click');
+
+      if (mood === 'greet') {
+        const lines = kodaDialogues.greet;
+        const randomLine = lines[Math.floor(Math.random() * lines.length)];
+        setKodaSpeech(`"${randomLine}"`, true, true);
+        triggerMiniSparkles(0.7, 0.35);
+      } else if (mood === 'tip') {
+        const companyTip = kodaDialogues.tip[activeCompanyKey] || kodaDialogues.tip.zoho;
+        setKodaSpeech(`"${companyTip}"`, true, true);
+        triggerMiniSparkles(0.7, 0.35);
+      } else if (mood === 'hype') {
+        const lines = kodaDialogues.hype;
+        const randomLine = lines[Math.floor(Math.random() * lines.length)];
+        setKodaSpeech(`"${randomLine}"`, true, true);
+        triggerConfettiCelebration();
+        playSound('success');
+      } else if (mood === 'test') {
+        const lines = kodaDialogues.test;
+        const randomLine = lines[Math.floor(Math.random() * lines.length)];
+        setKodaSpeech(`"${randomLine}"`, true, true);
+        triggerMiniSparkles(0.7, 0.35);
+      }
+    });
+  });
+
+  // Floating Koda Helper Widget Interactivity
+  const floatingTips = [
+    "👋 Need help with Round 2? Click me anytime!",
+    "💡 Tip: Practice your voice mock in the Studio!",
+    "🎯 Try the CTC Salary Predictor below!",
+    "✨ You've got this! One step at a time!"
+  ];
+  let floatingTipIdx = 0;
+
+  if (floatingKodaBtn) {
+    floatingKodaBtn.addEventListener('click', () => {
+      playSound('pop');
+      triggerMiniSparkles(0.9, 0.9);
+      floatingTipIdx = (floatingTipIdx + 1) % floatingTips.length;
+      if (floatingKodaTooltip) {
+        floatingKodaTooltip.innerHTML = `<span>${floatingTips[floatingTipIdx]}</span>`;
+      }
+      // If clicked, smoothly scroll to Koda stage or chat
+      const hero = document.getElementById('hero');
+      if (hero) hero.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // Periodic gentle tooltip suggestion update
+  setInterval(() => {
+    if (floatingKodaTooltip && !document.hidden) {
+      floatingTipIdx = (floatingTipIdx + 1) % floatingTips.length;
+      floatingKodaTooltip.style.opacity = '0';
+      setTimeout(() => {
+        floatingKodaTooltip.innerHTML = `<span>${floatingTips[floatingTipIdx]}</span>`;
+        floatingKodaTooltip.style.opacity = '1';
+      }, 300);
+    }
+  }, 12000);
 
   // =========================================================================
   // 6. TARGET COMPANY BLUEPRINT CONTROLLER
@@ -407,8 +642,20 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.toggle('active', btn.dataset.company === compKey);
     });
 
+    const companyEncouragements = {
+      zoho: "Aiming for <strong>Zoho Corp</strong>? 🏢 Great ambition! Zoho prizes pure, clean problem-solving without relying on pre-built libraries. Let's train your pointers and matrix logic!",
+      google: "Targeting <strong>Google SWE L3/L4</strong>? ⚡ Google loves elegant graph traversals, bitmask optimization, and solid algorithmic complexity intuition. You can do this!",
+      microsoft: "Setting sights on <strong>Microsoft</strong>? 🚀 Microsoft values clean modular architectures, thread-safe data structures, and sharp analytical clarity. Let's master it!",
+      amazon: "Preparing for <strong>Amazon SDE</strong>? 📦 Master the 16 Leadership Principles and priority heaps to crush your SDE-1 loop with flying colors!",
+      uber: "Gunning for <strong>Uber Systems</strong>? 🚗 Distributed systems, spatial indexing, and high-concurrency dispatch algorithms are our specialty. Let's level up!"
+    };
+
+    if (companyEncouragements[compKey]) {
+      setKodaSpeech(`"${companyEncouragements[compKey]}"`);
+    }
+
     playSound('pop');
-    triggerMiniSparkles();
+    triggerMiniSparkles(0.7, 0.4);
   }
 
   document.querySelectorAll('.comp-pill-btn').forEach((btn) => {
@@ -479,10 +726,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const askZohoBtn = document.getElementById('ask-question-btn');
   const askGoogleBtn = document.getElementById('ask-question-google-btn');
   const simulateCandidateBtn = document.getElementById('simulate-user-reply-btn');
+  const realMicBtn = document.getElementById('real-mic-speak-btn');
+  const realMicLabel = document.getElementById('real-mic-label');
+  const realMicIcon = document.getElementById('real-mic-icon');
   const studioTranscript = document.getElementById('studio-transcript-box');
   const metricLogic = document.getElementById('metric-logic');
   const metricConf = document.getElementById('metric-conf');
   const hudScore = document.getElementById('hud-composite-score');
+  const studioBotImg = document.getElementById('studio-bot-img');
 
   function updateStudioTranscript(speaker, text, isUser = false) {
     if (!studioTranscript) return;
@@ -493,52 +744,185 @@ document.addEventListener('DOMContentLoaded', () => {
     studioTranscript.scrollTop = studioTranscript.scrollHeight;
   }
 
+  function setBotSpeakingVisual(active) {
+    if (studioBotImg) {
+      if (active) studioBotImg.classList.add('speaking');
+      else studioBotImg.classList.remove('speaking');
+    }
+  }
+
+  // 1. Ask Zoho LLD Question with AI Voice
   if (askZohoBtn) {
     askZohoBtn.addEventListener('click', () => {
       playSound('click');
-      waveIntensity = 1.4;
+      waveIntensity = 2.4;
       waveColor = '#06b6d4';
       askZohoBtn.classList.add('active');
       if (askGoogleBtn) askGoogleBtn.classList.remove('active');
+      if (realMicBtn) realMicBtn.classList.remove('recording');
 
-      updateStudioTranscript('Dex AI', 'For Zoho Round 3: Design a Railway Waiting List Reservation CLI without java.util collections. How do you handle cancellations in O(1)?');
-      
-      setTimeout(() => { waveIntensity = 0.6; }, 2000);
+      const qText = "Welcome to your Zoho Round 3 technical mock! Here is your Low Level Design challenge: Architect a Railway Waiting List Reservation console application without utilizing external java collection libraries. How will you ensure cancellations and seat reallocations run in strict O(1) time?";
+      updateStudioTranscript('Dex AI Interviewer', qText);
+
+      speakAIVoice(qText, {
+        pitch: 1.0,
+        rate: 0.98,
+        voiceType: 'female',
+        onStart: () => setBotSpeakingVisual(true),
+        onEnd: () => {
+          setBotSpeakingVisual(false);
+          waveIntensity = 0.6;
+        }
+      });
     });
   }
 
+  // 2. Ask Google Graph Question with AI Voice
   if (askGoogleBtn) {
     askGoogleBtn.addEventListener('click', () => {
       playSound('click');
-      waveIntensity = 1.6;
+      waveIntensity = 2.5;
       waveColor = '#8b5cf6';
       askGoogleBtn.classList.add('active');
       if (askZohoBtn) askZohoBtn.classList.remove('active');
+      if (realMicBtn) realMicBtn.classList.remove('recording');
 
-      updateStudioTranscript('Dex AI', 'Google L4 Graph Round: Given an undirected cluster of data center nodes, detect if disconnecting any 2 edges isolates critical services.');
-      
-      setTimeout(() => { waveIntensity = 0.6; }, 2000);
+      const gText = "Welcome to the Google L4 Systems and Algorithms round. Given a cluster of geographically distributed nodes, determine if removing any two bridges disconnects critical routing services. State your time complexity using Tarjan's Bridge finding algorithm.";
+      updateStudioTranscript('Dex AI Interviewer', gText);
+
+      speakAIVoice(gText, {
+        pitch: 1.0,
+        rate: 0.98,
+        voiceType: 'female',
+        onStart: () => setBotSpeakingVisual(true),
+        onEnd: () => {
+          setBotSpeakingVisual(false);
+          waveIntensity = 0.6;
+        }
+      });
     });
   }
 
+  // 3. Candidate Voice Simulation (Pre-recorded high-tier response)
   if (simulateCandidateBtn) {
     simulateCandidateBtn.addEventListener('click', () => {
       playSound('pop');
-      waveIntensity = 1.8;
+      waveIntensity = 2.0;
       waveColor = '#10b981';
 
-      updateStudioTranscript('Candidate (You)', 'I will implement a Circular Doubly Linked List with custom Node pointers for the waiting queue, avoiding prohibited libraries, and update pointers in O(1) on seat release.', true);
+      const candidateSpeech = "To achieve O(1) cancellations without java.util collections, I will maintain custom Doubly Linked List nodes with direct pointers in an indexed array. When a ticket is cancelled, node splicing operates in constant O(1) time without list re-indexing.";
+      updateStudioTranscript('Candidate (You)', candidateSpeech, true);
 
-      setTimeout(() => {
-        playSound('success');
-        triggerMiniSparkles();
-        if (metricLogic) metricLogic.textContent = '100%';
-        if (metricConf) metricConf.textContent = '98%';
-        if (hudScore) hudScore.textContent = '99.4 / 100';
-        updateStudioTranscript('Dex AI Evaluation', 'Outstanding! Zero-Library constraint verified. O(1) pointer reconfiguration verified. AI Stress Grade: S+ Tier.');
-        waveIntensity = 0.5;
-        waveColor = '#06b6d4';
-      }, 1300);
+      speakAIVoice(candidateSpeech, {
+        pitch: 1.08,
+        rate: 1.02,
+        voiceType: 'male',
+        onEnd: () => {
+          setTimeout(() => {
+            playSound('success');
+            triggerMiniSparkles();
+            if (metricLogic) metricLogic.textContent = '100%';
+            if (metricConf) metricConf.textContent = '98%';
+            if (hudScore) hudScore.textContent = '99.4 / 100';
+
+            const evalMsg = "Outstanding delivery! Zero-Library constraint verified. O(1) pointer reconfiguration verified. AI Stress Grade: S+ Tier. You're ready for Round 3!";
+            updateStudioTranscript('Dex AI Evaluation', evalMsg);
+            speakAIVoice(evalMsg, {
+              pitch: 1.05,
+              rate: 1.0,
+              voiceType: 'female',
+              onStart: () => setBotSpeakingVisual(true),
+              onEnd: () => setBotSpeakingVisual(false)
+            });
+          }, 400);
+        }
+      });
+    });
+  }
+
+  // 4. Real Microphone Input (Speech-To-Text)
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let micActive = false;
+  let recognitionInstance = null;
+
+  if (realMicBtn) {
+    realMicBtn.addEventListener('click', () => {
+      if (!SpeechRecognition) {
+        alert("Web Speech Recognition is not natively enabled in this browser. Don't worry! Click 'Candidate Voice' to experience spoken mock answers!");
+        return;
+      }
+
+      if (micActive) {
+        if (recognitionInstance) recognitionInstance.stop();
+        return;
+      }
+
+      try {
+        recognitionInstance = new SpeechRecognition();
+        recognitionInstance.lang = 'en-US';
+        recognitionInstance.interimResults = false;
+        recognitionInstance.maxAlternatives = 1;
+
+        recognitionInstance.onstart = () => {
+          micActive = true;
+          realMicBtn.classList.add('recording');
+          if (realMicLabel) realMicLabel.textContent = 'Listening... Speak!';
+          if (realMicIcon) realMicIcon.setAttribute('data-lucide', 'mic-off');
+          lucide.createIcons();
+          playSound('pop');
+          waveIntensity = 2.2;
+          waveColor = '#ef4444';
+        };
+
+        recognitionInstance.onresult = (e) => {
+          const spoken = e.results[0][0].transcript;
+          updateStudioTranscript('Candidate (Your Mic)', spoken, true);
+
+          setTimeout(() => {
+            playSound('success');
+            triggerMiniSparkles();
+            if (metricLogic) metricLogic.textContent = '98%';
+            if (metricConf) metricConf.textContent = '97%';
+            if (hudScore) hudScore.textContent = '98.9 / 100';
+
+            const feedback = `Excellent answer! We captured: "${spoken}". Your technical clarity is strong with minimal hesitations. You qualify for the next engineering phase!`;
+            updateStudioTranscript('Dex AI Telemetry', feedback);
+            speakAIVoice(feedback, {
+              pitch: 1.0,
+              rate: 1.0,
+              voiceType: 'female',
+              onStart: () => setBotSpeakingVisual(true),
+              onEnd: () => setBotSpeakingVisual(false)
+            });
+          }, 500);
+        };
+
+        recognitionInstance.onerror = (err) => {
+          console.warn('Mic speech error:', err);
+          micActive = false;
+          realMicBtn.classList.remove('recording');
+          if (realMicLabel) realMicLabel.textContent = 'Speak With Mic';
+          if (realMicIcon) realMicIcon.setAttribute('data-lucide', 'mic');
+          lucide.createIcons();
+          waveIntensity = 0.5;
+          waveColor = '#06b6d4';
+        };
+
+        recognitionInstance.onend = () => {
+          micActive = false;
+          realMicBtn.classList.remove('recording');
+          if (realMicLabel) realMicLabel.textContent = 'Speak With Mic';
+          if (realMicIcon) realMicIcon.setAttribute('data-lucide', 'mic');
+          lucide.createIcons();
+          waveIntensity = 0.5;
+          waveColor = '#06b6d4';
+        };
+
+        recognitionInstance.start();
+      } catch (ex) {
+        console.warn('Microphone start error:', ex);
+        alert("Microphone could not be started. Click 'Candidate Voice' to test the audio feedback!");
+      }
     });
   }
 
@@ -660,6 +1044,21 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) modal.classList.remove('open');
+    });
+  }
+
+  const enrollModalBtn = document.getElementById('enroll-track-modal-btn');
+  if (enrollModalBtn) {
+    enrollModalBtn.addEventListener('click', () => {
+      playSound('success');
+      triggerConfettiBurst();
+      enrollModalBtn.innerHTML = '<i data-lucide="check-circle-2"></i> Sprint Enrolled! Check Email For Schedule';
+      lucide.createIcons();
+      setTimeout(() => {
+        if (modal) modal.classList.remove('open');
+        enrollModalBtn.innerHTML = '<i data-lucide="check-circle-2"></i> Enroll in this 8-Week AI Sprint Free';
+        lucide.createIcons();
+      }, 1600);
     });
   }
 
@@ -853,7 +1252,485 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // =========================================================================
+  // 14. SCROLL-REVEAL OBSERVER, PROGRESS BAR & SMOOTH SCROLLING ANIMATIONS
+  // =========================================================================
+  const scrollProgressBar = document.getElementById('scroll-progress-bar');
+  const navSections = document.querySelectorAll('section[id]');
+  const allNavLinks = document.querySelectorAll('.nav-links .nav-link');
+
+  // Real-time Scroll Progress Bar & Dynamic Nav Highlighting
+  window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight > 0 && scrollProgressBar) {
+      const scrollPercent = (window.scrollY / totalHeight) * 100;
+      scrollProgressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
+    }
+
+    // Active Navigation Link on Scroll
+    const scrollPos = window.scrollY + 180;
+    navSections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.getAttribute('id');
+      if (scrollPos >= top && scrollPos < top + height) {
+        allNavLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          } else if (link.getAttribute('href')?.startsWith('#')) {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, { passive: true });
+
+  // Intersection Observer for Cinematic Scroll-Reveal
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('is-revealed'));
+  }
+
+  // Eagerly reveal any elements currently inside viewport or near top on load
+  const triggerInitialReveal = () => {
+    const vpHeight = window.innerHeight;
+    revealElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= vpHeight * 0.95) {
+        el.classList.add('is-revealed');
+      }
+    });
+  };
+  triggerInitialReveal();
+  setTimeout(triggerInitialReveal, 200);
+
+  // Smooth Scroll with Navbar Offset for all anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === '#' || !targetId) return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        targetEl.classList.add('is-revealed');
+        const navHeight = 74;
+        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+
+  // Round 2 Celebration Banner Action
+  const r2CelebrateBtn = document.getElementById('r2-celebrate-btn');
+  if (r2CelebrateBtn) {
+    r2CelebrateBtn.addEventListener('click', () => {
+      playSound('success');
+      triggerConfettiBurst();
+      const r2Arena = document.getElementById('round2-arena');
+      if (r2Arena) r2Arena.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // =========================================================================
+  // 15. ROUND 2 SPECIALIZED ARENA: MATRIX VISUALIZER & STEP SIMULATOR
+  // =========================================================================
+  const matrixContainer = document.getElementById('matrix-visual-container');
+  const simStepInfo = document.getElementById('sim-step-info');
+  const simStepBtn = document.getElementById('sim-step-btn');
+  const simAutoBtn = document.getElementById('sim-auto-btn');
+  const r2TitleDisplay = document.getElementById('r2-title-display');
+  const r2DescDisplay = document.getElementById('r2-desc-display');
+  const r2BadgeDisplay = document.getElementById('r2-badge-display');
+
+  const r2Problems = {
+    'zoho-spiral': {
+      company: 'ZOHO ROUND 2',
+      title: 'Odd-Length String X-Pattern Parser',
+      desc: "Print an odd-length string (e.g. 'PRIME') in an 'X' pattern matrix using pure 2D pointers. Zero Java collection libraries or helper buffers permitted.",
+      gridSize: 5,
+      word: 'PRIME',
+      steps: [
+        { row: 0, text: 'Step 1: Row 0 -> pointers at (0,0)=\'P\' and (0,4)=\'P\'' },
+        { row: 1, text: 'Step 2: Row 1 -> pointers at (1,1)=\'R\' and (1,3)=\'R\'' },
+        { row: 2, text: 'Step 3: Row 2 -> center intersection (2,2)=\'I\'' },
+        { row: 3, text: 'Step 4: Row 3 -> pointers at (3,1)=\'M\' and (3,3)=\'M\'' },
+        { row: 4, text: 'Step 5: Row 4 -> pointers at (4,0)=\'E\' and (4,4)=\'E\'' }
+      ]
+    },
+    'google-graph': {
+      company: 'GOOGLE ROUND 2',
+      title: 'Distributed Graph Cycle & Topo Sorter',
+      desc: 'Detect dependency cycles in multi-region cluster topologies. Identify strongly connected components under strict memory and time bounds.',
+      gridSize: 5,
+      word: 'NODES',
+      steps: [
+        { row: 0, text: 'Step 1: Initialize adjacency degree table for cluster A' },
+        { row: 1, text: 'Step 2: Push zero in-degree nodes to execution queue' },
+        { row: 2, text: 'Step 3: Relax topological edges across Region 2 nodes' },
+        { row: 3, text: 'Step 4: Detect cycle invariant in back-edge (Node 3 -> 1)' },
+        { row: 4, text: 'Step 5: Cycle Resolved! Graph validated 100% acyclic' }
+      ]
+    },
+    'msft-lru': {
+      company: 'MICROSOFT ROUND 2',
+      title: 'O(1) LRU Cache Doubly Linked List',
+      desc: 'Architect a production-ready cache eviction engine supporting get() and put() in strict O(1) time complexity with custom node references.',
+      gridSize: 5,
+      word: 'CACHE',
+      steps: [
+        { row: 0, text: 'Step 1: put(\'A\', 1) -> Allocate Node at MRU head' },
+        { row: 1, text: 'Step 2: put(\'B\', 2) -> Shift previous head pointers in O(1)' },
+        { row: 2, text: 'Step 3: get(\'A\') -> Hit! Move Node A to front of cache' },
+        { row: 3, text: 'Step 4: Capacity breach -> Evict LRU tail node in O(1)' },
+        { row: 4, text: 'Step 5: Rebalance complete. 0.02ms access verified' }
+      ]
+    }
+  };
+
+  let activeR2ProblemKey = 'zoho-spiral';
+  let currentSimStep = 0;
+  let autoSimInterval = null;
+
+  function renderMatrixGrid(probKey) {
+    if (!matrixContainer) return;
+    const prob = r2Problems[probKey];
+    matrixContainer.innerHTML = '';
+    matrixContainer.style.gridTemplateColumns = `repeat(${prob.gridSize}, 36px)`;
+
+    const N = prob.gridSize;
+    for (let r = 0; r < N; r++) {
+      for (let c = 0; c < N; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'matrix-cell';
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+        cell.textContent = '·';
+        matrixContainer.appendChild(cell);
+      }
+    }
+    currentSimStep = 0;
+    updateSimulationState();
+  }
+
+  function updateSimulationState() {
+    if (!matrixContainer) return;
+    const prob = r2Problems[activeR2ProblemKey];
+    const N = prob.gridSize;
+    const cells = matrixContainer.querySelectorAll('.matrix-cell');
+
+    cells.forEach(cell => {
+      cell.classList.remove('highlight-diag', 'highlight-center');
+      const r = parseInt(cell.dataset.row, 10);
+      const c = parseInt(cell.dataset.col, 10);
+
+      if (r < currentSimStep) {
+        if (r === c && r === Math.floor(N / 2)) {
+          cell.textContent = prob.word[r];
+          cell.classList.add('highlight-center');
+        } else if (r === c || r + c === N - 1) {
+          cell.textContent = prob.word[c];
+          cell.classList.add('highlight-diag');
+        } else {
+          cell.textContent = ' ';
+        }
+      } else {
+        cell.textContent = '·';
+      }
+    });
+
+    if (simStepInfo) {
+      if (currentSimStep === 0) {
+        simStepInfo.innerHTML = `<i data-lucide="play"></i> Ready to trace ${prob.title}`;
+      } else if (currentSimStep <= prob.steps.length) {
+        simStepInfo.innerHTML = `<i data-lucide="check-circle-2"></i> ${prob.steps[currentSimStep - 1].text}`;
+      } else {
+        simStepInfo.innerHTML = `<i data-lucide="check-check"></i> Visual Trace Complete! Zero-Library Validated.`;
+      }
+      lucide.createIcons();
+    }
+  }
+
+  if (simStepBtn) {
+    simStepBtn.addEventListener('click', () => {
+      const prob = r2Problems[activeR2ProblemKey];
+      if (currentSimStep >= prob.steps.length) {
+        currentSimStep = 0;
+      }
+      currentSimStep++;
+      playSound('click');
+      updateSimulationState();
+    });
+  }
+
+  if (simAutoBtn) {
+    simAutoBtn.addEventListener('click', () => {
+      const prob = r2Problems[activeR2ProblemKey];
+      if (autoSimInterval) {
+        clearInterval(autoSimInterval);
+        autoSimInterval = null;
+        simAutoBtn.innerHTML = '<i data-lucide="zap"></i> Auto Animate';
+        lucide.createIcons();
+        return;
+      }
+
+      currentSimStep = 0;
+      simAutoBtn.innerHTML = '<i data-lucide="pause"></i> Pause Trace';
+      lucide.createIcons();
+      playSound('pop');
+
+      autoSimInterval = setInterval(() => {
+        if (currentSimStep < prob.steps.length) {
+          currentSimStep++;
+          playSound('click');
+          updateSimulationState();
+        } else {
+          clearInterval(autoSimInterval);
+          autoSimInterval = null;
+          simAutoBtn.innerHTML = '<i data-lucide="zap"></i> Re-Play Trace';
+          lucide.createIcons();
+          playSound('success');
+          triggerMiniSparkles();
+        }
+      }, 650);
+    });
+  }
+
+  // R2 Problem Tab Buttons
+  document.querySelectorAll('.r2-tab-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.r2-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const probKey = btn.dataset.r2Problem;
+      activeR2ProblemKey = probKey;
+      const prob = r2Problems[probKey];
+
+      if (r2BadgeDisplay) r2BadgeDisplay.textContent = prob.company;
+      if (r2TitleDisplay) r2TitleDisplay.textContent = prob.title;
+      if (r2DescDisplay) r2DescDisplay.textContent = prob.desc;
+
+      if (autoSimInterval) {
+        clearInterval(autoSimInterval);
+        autoSimInterval = null;
+        if (simAutoBtn) {
+          simAutoBtn.innerHTML = '<i data-lucide="zap"></i> Auto Animate';
+          lucide.createIcons();
+        }
+      }
+
+      renderMatrixGrid(probKey);
+      playSound('pop');
+    });
+  });
+
+  // Initial render of matrix grid
+  renderMatrixGrid('zoho-spiral');
+
+  // =========================================================================
+  // 16. AI CODE AUTO-OPTIMIZER (INTERACTIVE DIFF ENGINE)
+  // =========================================================================
+  const diffBtnUnopt = document.getElementById('diff-btn-unopt');
+  const diffBtnOpt = document.getElementById('diff-btn-opt');
+  const codeDiffDisplay = document.getElementById('code-diff-display');
+  const metricDiffTime = document.getElementById('metric-diff-time');
+  const metricDiffMem = document.getElementById('metric-diff-mem');
+  const metricDiffPass = document.getElementById('metric-diff-pass');
+
+  const unoptCode = `<span class="c-cm">// Brute force approach with high memory allocation</span>
+<span class="c-kw">for</span> (<span class="c-kw">int</span> i = 0; i &lt; n; i++) {
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> j = 0; j &lt; n; j++) {
+        String cell = (i == j || i+j == n-1) ? str.substring(j, j+1) : " ";
+        System.out.print(cell);
+    }
+    System.out.println();
+}`;
+
+  const optCode = `<span class="c-cm">// Kodex AI Optimized: O(N) single-pass with zero heap string allocation</span>
+<span class="c-kw">char</span>[] buf = <span class="c-kw">new char</span>[n];
+<span class="c-kw">for</span> (<span class="c-kw">int</span> i = 0; i &lt; n; i++) {
+    java.util.Arrays.fill(buf, <span class="c-str">' '</span>);
+    buf[i] = str.charAt(i);
+    buf[n - 1 - i] = str.charAt(n - 1 - i);
+    System.out.println(buf);
+}`;
+
+  if (diffBtnUnopt && diffBtnOpt && codeDiffDisplay) {
+    diffBtnUnopt.addEventListener('click', () => {
+      diffBtnUnopt.classList.add('active');
+      diffBtnOpt.classList.remove('active');
+      codeDiffDisplay.innerHTML = `<code>${unoptCode}</code>`;
+      if (metricDiffTime) { metricDiffTime.textContent = 'O(N²) Nested'; metricDiffTime.style.color = '#f87171'; }
+      if (metricDiffMem) { metricDiffMem.textContent = '42.8 MB Allocated'; metricDiffMem.style.color = '#f87171'; }
+      if (metricDiffPass) { metricDiffPass.textContent = '35% Borderline'; metricDiffPass.style.color = '#f59e0b'; }
+      playSound('click');
+    });
+
+    diffBtnOpt.addEventListener('click', () => {
+      diffBtnOpt.classList.add('active');
+      diffBtnUnopt.classList.remove('active');
+      codeDiffDisplay.innerHTML = `<code>${optCode}</code>`;
+      if (metricDiffTime) { metricDiffTime.textContent = 'O(N) Linear (12ms)'; metricDiffTime.style.color = '#34d399'; }
+      if (metricDiffMem) { metricDiffMem.textContent = '0.2 MB Stack Only'; metricDiffMem.style.color = '#34d399'; }
+      if (metricDiffPass) { metricDiffPass.textContent = '99.4% S+ Tier Clear'; metricDiffPass.style.color = '#34d399'; }
+      playSound('success');
+      triggerMiniSparkles();
+    });
+  }
+
+  // =========================================================================
+  // 17. ROUND 2 SPEED ATTACK DUEL MINI-GAME
+  // =========================================================================
+  const duelQuestions = [
+    {
+      q: "Question 1: In Zoho Round 2, which approach detects a loop in a Singly Linked List in O(N) time with O(1) space without modifying node structure?",
+      options: [
+        { text: "Floyd's Cycle-Finding Algorithm (Tortoise & Hare)", correct: true },
+        { text: "Store visited node references in a HashSet", correct: false },
+        { text: "Reverse the Linked List and check head collision", correct: false },
+        { text: "Compare node memory pointers using bubble sort", correct: false }
+      ]
+    },
+    {
+      q: "Question 2: Under Zoho Round 2 zero-library rules, what is the optimal way to reverse words in a char string without using .split()?",
+      options: [
+        { text: "Reverse entire character array, then reverse each word in-place using two pointers", correct: true },
+        { text: "Allocate a StringTokenizer and push tokens to a Stack", correct: false },
+        { text: "Use regular expression replaceWith() matcher", correct: false },
+        { text: "Convert char array to ArrayList<Character> and call Collections.reverse()", correct: false }
+      ]
+    },
+    {
+      q: "Question 3: For Microsoft & Google Round 2 LRU Cache, how do we guarantee strict O(1) access for both get() and put()?",
+      options: [
+        { text: "Doubly Linked List for O(1) node reordering + Hash Map for O(1) key lookups", correct: true },
+        { text: "Binary Search Tree ordered by timestamp frequency", correct: false },
+        { text: "Min-Heap priority queue keyed by last access timestamp", correct: false },
+        { text: "Single circular array with linear probing search", correct: false }
+      ]
+    }
+  ];
+
+  let currentDuelQIndex = 0;
+  let duelXP = 0;
+  let duelTimerSeconds = 60;
+  let duelTimerInterval = null;
+
+  const duelQuestionText = document.getElementById('duel-question-text');
+  const duelOptionsContainer = document.getElementById('duel-options-container');
+  const duelFeedbackText = document.getElementById('duel-feedback-text');
+  const duelNextBtn = document.getElementById('duel-next-btn');
+  const duelXpScore = document.getElementById('duel-xp-score');
+  const duelTimeLeft = document.getElementById('duel-time-left');
+
+  function renderDuelQuestion(qIdx) {
+    if (!duelQuestionText || !duelOptionsContainer) return;
+    const qData = duelQuestions[qIdx];
+    duelQuestionText.textContent = qData.q;
+    duelOptionsContainer.innerHTML = '';
+
+    qData.options.forEach((opt) => {
+      const btn = document.createElement('button');
+      btn.className = 'duel-opt-btn';
+      btn.dataset.correct = opt.correct;
+      btn.innerHTML = `<i data-lucide="chevron-right"></i> <span>${opt.text}</span>`;
+      
+      btn.addEventListener('click', () => {
+        handleDuelAnswer(btn, opt.correct);
+      });
+
+      duelOptionsContainer.appendChild(btn);
+    });
+
+    if (duelFeedbackText) {
+      duelFeedbackText.textContent = "Select the optimal engineering choice...";
+      duelFeedbackText.style.color = "var(--text-muted)";
+    }
+    if (duelNextBtn) duelNextBtn.style.display = 'none';
+    lucide.createIcons();
+  }
+
+  function handleDuelAnswer(selectedBtn, isCorrect) {
+    const allBtns = duelOptionsContainer.querySelectorAll('.duel-opt-btn');
+    allBtns.forEach(b => b.disabled = true);
+
+    if (isCorrect) {
+      selectedBtn.classList.add('correct');
+      duelXP += 150;
+      if (duelXpScore) duelXpScore.textContent = duelXP;
+      if (duelFeedbackText) {
+        duelFeedbackText.innerHTML = "<strong style='color:#34d399;'>✓ Correct! +150 XP</strong> Zero-alloc pointer solution recognized.";
+      }
+      playSound('success');
+      triggerMiniSparkles();
+    } else {
+      selectedBtn.classList.add('wrong');
+      allBtns.forEach(b => {
+        if (b.dataset.correct === 'true') b.classList.add('correct');
+      });
+      if (duelFeedbackText) {
+        duelFeedbackText.innerHTML = "<strong style='color:#f87171;'>✗ Suboptimal Choice!</strong> The interviewer marked this as violation.";
+      }
+      playSound('click');
+    }
+
+    if (duelNextBtn) {
+      duelNextBtn.style.display = 'inline-flex';
+      if (currentDuelQIndex === duelQuestions.length - 1) {
+        duelNextBtn.innerHTML = '<span>Finish Duel & Celebrate 🏆</span>';
+      }
+    }
+  }
+
+  if (duelNextBtn) {
+    duelNextBtn.addEventListener('click', () => {
+      if (currentDuelQIndex < duelQuestions.length - 1) {
+        currentDuelQIndex++;
+        renderDuelQuestion(currentDuelQIndex);
+        playSound('pop');
+      } else {
+        playSound('success');
+        triggerConfettiBurst();
+        if (duelFeedbackText) {
+          duelFeedbackText.innerHTML = `<strong style='color:#fbbf24;'>🎉 ROUND 2 DUEL MASTERED! Total Score: ${duelXP} XP</strong> — Interview Clearance Probability: 99.8%!`;
+        }
+        duelNextBtn.style.display = 'none';
+      }
+    });
+  }
+
+  // Initialize Duel Timer
+  function startDuelTimer() {
+    if (duelTimerInterval) clearInterval(duelTimerInterval);
+    duelTimerInterval = setInterval(() => {
+      if (duelTimerSeconds > 0) {
+        duelTimerSeconds--;
+        if (duelTimeLeft) duelTimeLeft.textContent = `${duelTimerSeconds}s`;
+      } else {
+        clearInterval(duelTimerInterval);
+        if (duelFeedbackText) duelFeedbackText.textContent = "Time limit expired for this round!";
+      }
+    }, 1000);
+  }
+  startDuelTimer();
+
+  // Initial render of first duel question
+  renderDuelQuestion(0);
+
   // Initial calculation run
   recalculateCTC();
   lucide.createIcons();
 });
+

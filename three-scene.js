@@ -186,10 +186,16 @@
   let mouseX = 0;
   let mouseY = 0;
 
+  let scrollProgress = 0;
   window.addEventListener('mousemove', (e) => {
     targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
     targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
   });
+
+  window.addEventListener('scroll', () => {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  }, { passive: true });
 
   // Theme Switching Event Hook
   window.addEventListener('themeChanged', (e) => {
@@ -246,10 +252,12 @@
     mouseX += (targetMouseX - mouseX) * 0.04;
     mouseY += (targetMouseY - mouseY) * 0.04;
 
-    // Camera subtle parallax
+    // Camera subtle parallax & scroll depth transition
     camera.position.x = mouseX * 2.8;
-    camera.position.y = mouseY * 2.2;
-    camera.lookAt(0, 0, 0);
+    camera.position.y = mouseY * 2.2 - scrollProgress * 5.0;
+    camera.lookAt(0, -scrollProgress * 2.5, 0);
+
+    mainGroup.rotation.y = scrollProgress * 0.45;
 
     // Rotate Central Hologram Core
     if (coreGroup) {
@@ -265,9 +273,9 @@
       const pulse = 1 + Math.sin(elapsedTime * 2.5) * 0.08;
       innerGlowSphere.scale.set(pulse, pulse, pulse);
 
-      // Core tracks mouse slightly
+      // Core tracks mouse slightly and ascends out of view on scroll so it stays in hero
       coreGroup.position.x = 12 + mouseX * 2;
-      coreGroup.position.y = 2 + mouseY * 1.5;
+      coreGroup.position.y = 2 + mouseY * 1.5 + scrollProgress * 28;
     }
 
     // Floating Geometries motion

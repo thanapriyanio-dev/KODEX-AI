@@ -24,6 +24,9 @@
 </head>
 <body class="theme-cyber">
 
+  <!-- Real-Time Scroll Progress Indicator -->
+  <div id="scroll-progress-bar"></div>
+
   <!-- Custom Glowing Cursor & Magnetic Follower -->
   <div class="custom-cursor-dot" id="cursor-dot"></div>
   <div class="custom-cursor-ring" id="cursor-ring"></div>
@@ -34,9 +37,9 @@
   <!-- Top Announcement Bar -->
   <div class="top-announcement">
     <div class="announcement-content">
-      <span class="badge-live"><span class="pulse-dot"></span> LIVE 2026 PLACEMENT DRIVE</span>
-      <span>⚡ <strong>1,480+ verified offers</strong> unlocked this week at Zoho, Google, Uber & Atlassian!</span>
-      <a href="#company-tracks" class="link-styled">Explore Track Roadmaps &rarr;</a>
+      <span class="badge-round2-champ"><i data-lucide="award"></i> ROUND 2 QUALIFIED</span>
+      <span>⚡ <strong>Round 2 Advanced Technical Engine Unlocked:</strong> Zero-Library Parsers & Time-Attack Duel!</span>
+      <a href="#round2-arena" class="link-styled">Jump to Round 2 Crucible &rarr;</a>
     </div>
   </div>
 
@@ -101,6 +104,7 @@
           </div>
         </div>
 
+        <a href="#round2-arena" class="nav-link nav-round2-highlight"><span class="badge-r2-nav">R2</span> Round 2 Crucible</a>
         <a href="#voice-studio-section" class="nav-link"><i data-lucide="mic"></i> Voice Studio</a>
         <a href="#salary-calculator" class="nav-link"><i data-lucide="calculator"></i> CTC Predictor</a>
         <a href="#arena-section" class="nav-link"><i data-lucide="terminal"></i> 3D Code Arena</a>
@@ -181,6 +185,22 @@
       <!-- Left Column: Vision & Master Pitch -->
       <div class="hero-left-content">
         
+        <!-- ROUND 2 QUALIFICATION CELEBRATION HUD BANNER -->
+        <div class="round2-qual-alert card-3d-tilt" id="round2-celebration-banner">
+          <div class="r2-alert-content">
+            <div class="r2-badge-gold">
+              <i data-lucide="trophy"></i>
+              <span>ROUND 2 QUALIFIED</span>
+            </div>
+            <div class="r2-text">
+              <strong>Level 2 Unlocked!</strong> Advanced Zero-Library Matrix Parsers & 60s Speed Attack Duel are now active.
+            </div>
+          </div>
+          <button class="btn-r2-celebrate" id="r2-celebrate-btn" title="Celebrate & Explore Level 2 Modules">
+            <i data-lucide="sparkles"></i> Celebrate & Explore R2 &rarr;
+          </button>
+        </div>
+
         <div class="hero-badge-container">
           <div class="floating-pill-badge">
             <span class="star-sparkle">✦</span>
@@ -263,85 +283,74 @@
 
       </div>
 
-      <!-- Right Column: 3D Dimensional Interactive AI Cockpit -->
-      <div class="hero-cockpit-wrapper">
-        <div class="cockpit-card-3d card-3d-tilt" id="cockpit-card">
+      <!-- Right Column: 3D Interactive Koda Bestie Stage (Showstopper) -->
+      <div class="koda-stage-wrapper">
+        <div class="koda-companion-card card-3d-tilt" id="koda-card">
           
-          <!-- Cockpit Top Bar -->
-          <div class="cockpit-top-bar">
-            <div class="cockpit-identity">
-              <div class="cockpit-avatar-icon">
-                <i data-lucide="bot"></i>
+          <!-- Top Status Header -->
+          <div class="koda-topbar">
+            <div class="koda-identity">
+              <div class="koda-avatar-ring">
+                <img src="assets/robot_mentor.jpg" alt="Koda 3D AI Career Bestie">
               </div>
               <div>
-                <strong>Dex AI Autonomous Co-Pilot</strong>
-                <small><span class="pulse-dot"></span> Neural Engine Active</small>
+                <strong>Koda <span style="font-size:0.8rem; color:#ec4899;">✦ Your AI Bestie</span></strong>
+                <small><span class="pulse-dot-green"></span> Always Online • Ready to cheer &amp; help</small>
               </div>
             </div>
-            <span class="cockpit-latency-pill">⚡ 12ms AI Latency</span>
+            <span class="koda-status-pill">✨ Powered by Kodex 3.0</span>
           </div>
 
-          <!-- Live Voice Waveform Module -->
-          <div class="voice-cockpit-module">
-            <div class="v-module-header">
-              <span><i data-lucide="audio-waveform"></i> Voice Clarity & Stress Telemetry</span>
-              <span class="v-status-live"><span class="pulse-dot"></span> Live Audio Stream</span>
-            </div>
-            
-            <div class="waveform-canvas-box">
-              <canvas id="cockpit-waveform-canvas"></canvas>
-            </div>
-
-            <div class="telemetry-mini-grid">
-              <div class="t-metric">
-                <span>Logic Precision</span>
-                <strong class="green">98.4%</strong>
-              </div>
-              <div class="t-metric">
-                <span>Voice Clarity</span>
-                <strong>96.2%</strong>
-              </div>
-              <div class="t-metric">
-                <span>Filler Words</span>
-                <strong class="violet">&lt; 0.2%</strong>
-              </div>
+          <!-- 3D Mascot Stage with Floating Animation & Tap Reaction -->
+          <div class="koda-visual-viewport" id="koda-viewport" title="Click or tap Koda to interact!">
+            <img src="assets/robot_mentor.jpg" alt="Koda waving happily" class="koda-mascot-img" id="koda-mascot">
+            <div class="koda-tap-badge" id="koda-poke-btn">
+              <span>👋 Tap Koda to poke!</span>
             </div>
           </div>
 
-          <!-- Interactive Code Snippet / Kernel Execution -->
-          <div class="code-cockpit-module">
-            <div class="code-cockpit-top">
-              <div class="code-dots">
-                <span class="dot-red"></span>
-                <span class="dot-yellow"></span>
-                <span class="dot-green"></span>
-              </div>
-              <span class="code-title">placement_kernel.py — Python 3.12</span>
-              <button class="btn-code-execute" id="cockpit-run-btn">
-                <i data-lucide="play"></i> Run Analysis
+          <!-- Friendly Live Speech Bubble with Voice Synthesis Playback -->
+          <div class="koda-speech-bubble" id="koda-speech-bubble">
+            <div class="koda-speech-top" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:0.75rem; font-weight:800; color:var(--accent-cyan); display:flex; align-items:center; gap:6px;">
+                <i data-lucide="sparkles" style="width:14px; height:14px;"></i> KODA'S LIVE MESSAGE
+              </span>
+              <button class="btn-voice-listen" id="koda-listen-btn" title="Click to hear Koda speak aloud!">
+                <i data-lucide="volume-2" id="koda-voice-icon" style="width:13px; height:13px;"></i>
+                <span id="koda-voice-btn-label">Hear Koda Speak</span>
               </button>
             </div>
-            
-            <pre class="code-pre-box"><code><span class="c-cm"># Kodex AI Placement Optimization Engine</span>
-<span class="c-kw">def</span> <span class="c-fn">accelerate_placement</span>(candidate, target=<span class="c-str">"ZOHO"</span>):
-    syllabus = ai_copilot.load_rubric(target, year=<span class="c-str">"2026"</span>)
-    <span class="c-kw">return</span> candidate.master(syllabus, stress_test=<span class="c-kw">True</span>)</code></pre>
-
-            <div class="code-exec-output" id="cockpit-exec-output">
-              <span><i data-lucide="check-circle-2"></i> Ready for execution test suite</span>
-              <strong>CLICK [RUN ANALYSIS]</strong>
-            </div>
+            <p class="speech-text" id="koda-speech-text">
+              "Hey friend! 🚀 Don't stress about Round 2 interviews alone! I'm Koda, your personal AI career mentor. Whether you're aiming for <strong>Zoho, Google, or Microsoft</strong>, let's practice together with zero judgment. Tap a mood below or ask me anything!"
+            </p>
           </div>
 
-          <!-- Floating Holographic Foil Badge -->
-          <div class="foil-badge-float">
-            <div class="foil-icon">
-              <i data-lucide="check"></i>
-            </div>
-            <div class="foil-info">
-              <strong>Zoho SDE-II Offer Unlocked</strong>
-              <span>₹16.8 LPA • Tenkasi Campus</span>
-            </div>
+          <!-- Interactive Mood Reaction Strip (Unique Friendly Control) -->
+          <div class="koda-mood-strip" id="koda-mood-strip">
+            <button class="btn-mood-reaction active" data-mood="greet">
+              <span>👋 Say Hi</span>
+            </button>
+            <button class="btn-mood-reaction" data-mood="tip">
+              <span>💡 Pro Tip</span>
+            </button>
+            <button class="btn-mood-reaction" data-mood="hype">
+              <span>🎉 Hype Me Up</span>
+            </button>
+            <button class="btn-mood-reaction" data-mood="test">
+              <span>🎯 Test Me</span>
+            </button>
+          </div>
+
+          <!-- Live Readiness Telemetry -->
+          <div class="koda-voice-telemetry">
+            <span style="display:flex; align-items:center; gap:6px;">
+              <i data-lucide="sparkles" style="width:14px; height:14px; color:#f59e0b;"></i>
+              <span>Readiness score: <strong>98.7%</strong></span>
+            </span>
+            <span style="display:flex; align-items:center; gap:6px;">
+              <i data-lucide="heart" style="width:14px; height:14px; color:#ec4899;"></i>
+              <span>Confidence: <strong>Unstoppable 🚀</strong></span>
+            </span>
           </div>
 
         </div>
@@ -350,8 +359,177 @@
     </div>
   </section>
 
+  <!-- =========================================================================
+       ROUND 2 SPECIALIZED ARENA: THE TECHNICAL CRUCIBLE & SPEED DUEL ENGINE
+       ========================================================================= -->
+  <section class="section-container reveal-on-scroll" id="round2-arena">
+    <div class="section-header text-center">
+      <div class="section-tag" style="background:rgba(245, 158, 11, 0.15); color:#fbbf24; border-color:rgba(245, 158, 11, 0.4);">
+        <i data-lucide="award"></i> ROUND 2 ADVANCED ENGINEERING CRUCIBLE
+      </div>
+      <h2 class="section-title">The Round 2 Technical Crucible</h2>
+      <p class="section-desc">
+        Where 85% of applicants get eliminated. Conquer zero-library constraints, explore live step-by-step visual problem traces, compare AI auto-optimized code diffs, and test your speed in the 60-second candidate duel.
+      </p>
+    </div>
+
+    <!-- Round 2 Problem Selector Tabs -->
+    <div class="r2-tabs-strip">
+      <button class="r2-tab-btn active" data-r2-problem="zoho-spiral">
+        <i data-lucide="grid"></i> Zoho R2: Spiral & X-Pattern
+      </button>
+      <button class="r2-tab-btn" data-r2-problem="google-graph">
+        <i data-lucide="network"></i> Google R2: Cycle & Graph Topo
+      </button>
+      <button class="r2-tab-btn" data-r2-problem="msft-lru">
+        <i data-lucide="database"></i> Microsoft R2: O(1) LRU Cache
+      </button>
+    </div>
+
+    <div class="round2-showcase-wrap" style="margin-top:28px;">
+      
+      <!-- Row 1: Problem Visualizer + AI Auto-Optimizer Diff Engine -->
+      <div class="r2-main-grid">
+        
+        <!-- Left: Interactive Visual Simulation Canvas -->
+        <div class="r2-visualizer-card card-3d-tilt">
+          <div class="r2-card-header">
+            <div class="r2-header-title">
+              <span class="r2-problem-badge" id="r2-badge-display">ZOHO ROUND 2</span>
+              <h4 id="r2-title-display">Odd-Length String X-Pattern Parser</h4>
+            </div>
+            <span class="r2-constraint-pill"><i data-lucide="shield-alert"></i> Zero-Library Rule</span>
+          </div>
+
+          <p style="font-size:0.85rem; color:var(--text-muted);" id="r2-desc-display">
+            Print an odd-length string of length N in an 'X' pattern matrix using pure 2D pointers. No helper string arrays or StringBuilder methods allowed.
+          </p>
+
+          <!-- Interactive Simulation Stage (Matrix Grid / Pointers) -->
+          <div class="r2-simulation-stage" id="r2-stage">
+            <div class="matrix-grid-visual" id="matrix-visual-container" style="grid-template-columns: repeat(5, 36px);">
+              <!-- Populated dynamically via app.js -->
+            </div>
+            <div class="sim-controls-strip">
+              <span class="sim-step-info" id="sim-step-info"><i data-lucide="play"></i> Step: 1 of 5 (Diagonal Pointers)</span>
+              <div class="sim-btn-group">
+                <button class="btn-sim-action" id="sim-step-btn">
+                  <i data-lucide="step-forward"></i> Next Step
+                </button>
+                <button class="btn-sim-action" id="sim-auto-btn" style="background:var(--gradient-brand); color:#fff; border-color:transparent;">
+                  <i data-lucide="zap"></i> Auto Animate
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: AI Code Auto-Optimizer (Interactive Diff Engine) -->
+        <div class="r2-optimizer-card card-3d-tilt">
+          <div class="r2-card-header">
+            <div class="r2-header-title">
+              <i data-lucide="sparkles" style="color:var(--accent-cyan);"></i>
+              <h4>AI Code Auto-Optimizer</h4>
+            </div>
+            <span class="latency-pill"><i data-lucide="activity"></i> AST Optimization</span>
+          </div>
+
+          <!-- Diff Toggle Bar -->
+          <div class="diff-toggle-bar">
+            <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">COMPARE APPROACH:</span>
+            <div class="diff-toggle-buttons">
+              <button class="diff-tab-btn active unopt" id="diff-btn-unopt">Brute Force O(N²)</button>
+              <button class="diff-tab-btn opt" id="diff-btn-opt">⚡ Kodex AI O(N)</button>
+            </div>
+          </div>
+
+          <!-- Code Diff Surface -->
+          <pre class="code-diff-surface" id="code-diff-display"><code><span class="c-cm">// Brute force approach with high memory allocation</span>
+<span class="c-kw">for</span> (<span class="c-kw">int</span> i = 0; i &lt; n; i++) {
+    <span class="c-kw">for</span> (<span class="c-kw">int</span> j = 0; j &lt; n; j++) {
+        String cell = (i == j || i+j == n-1) ? str.substring(j, j+1) : " ";
+        System.out.print(cell);
+    }
+    System.out.println();
+}</code></pre>
+
+          <!-- Telemetry Comparison Metrics -->
+          <div class="diff-metrics-grid">
+            <div class="diff-metric-box">
+              <span>Time Complexity</span>
+              <strong style="color:#f87171;" id="metric-diff-time">O(N²) Nested</strong>
+            </div>
+            <div class="diff-metric-box">
+              <span>Memory Footprint</span>
+              <strong style="color:#f87171;" id="metric-diff-mem">42.8 MB Allocated</strong>
+            </div>
+            <div class="diff-metric-box">
+              <span>Interviewer Pass</span>
+              <strong style="color:#f59e0b;" id="metric-diff-pass">35% Borderline</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: Round 2 Rapid-Fire Speed Attack Mini-Game -->
+      <div class="r2-duel-container card-3d-tilt">
+        <div class="duel-header-row">
+          <div class="duel-vs-block">
+            <div class="duel-avatar candidate">YOU</div>
+            <span class="duel-vs-text">VS</span>
+            <div class="duel-avatar bot">DEX</div>
+            <div>
+              <strong style="font-size:0.95rem; color:var(--text-main);">Round 2 Speed Duel: Candidate vs AI</strong>
+              <small style="display:block; font-size:0.75rem; color:var(--text-muted);">Answer rapid technical questions under 60-second pressure</small>
+            </div>
+          </div>
+
+          <div class="duel-telemetry-strip">
+            <div class="duel-timer-pill" id="duel-timer-badge">
+              <i data-lucide="clock"></i> <span id="duel-time-left">60s</span>
+            </div>
+            <div class="duel-score-pill">
+              <i data-lucide="trophy"></i> XP: <span id="duel-xp-score">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Duel Arena Question Box -->
+        <div class="duel-arena-interactive">
+          <h4 class="duel-question-title" id="duel-question-text">
+            Question 1: In Zoho Round 2, which approach detects a loop in a Singly Linked List in O(N) time with O(1) space without modifying node structure?
+          </h4>
+
+          <div class="duel-options-grid" id="duel-options-container">
+            <button class="duel-opt-btn" data-correct="true">
+              <i data-lucide="chevron-right"></i> Floyd's Cycle-Finding Algorithm (Tortoise & Hare)
+            </button>
+            <button class="duel-opt-btn" data-correct="false">
+              <i data-lucide="chevron-right"></i> Store visited node references in a HashSet
+            </button>
+            <button class="duel-opt-btn" data-correct="false">
+              <i data-lucide="chevron-right"></i> Reverse the Linked List and check head collision
+            </button>
+            <button class="duel-opt-btn" data-correct="false">
+              <i data-lucide="chevron-right"></i> Compare node memory pointers using bubble sort
+            </button>
+          </div>
+
+          <div class="duel-feedback-bar">
+            <span id="duel-feedback-text" style="color:var(--text-muted);">Select the optimal engineering choice...</span>
+            <button class="btn-primary-bold" id="duel-next-btn" style="display:none; padding:6px 16px; font-size:0.8rem;">
+              <span>Next Question &rarr;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- SHOWSTOPPER 1: LIVE AI VOICE MOCK INTERVIEW STUDIO -->
-  <section class="section-container" id="voice-studio-section">
+  <section class="section-container reveal-on-scroll" id="voice-studio-section">
     <div class="section-header text-center">
       <div class="section-tag"><i data-lucide="mic"></i> REAL-TIME INTERACTIVE SIMULATION</div>
       <h2 class="section-title">Experience Dex AI Live Voice Mock Studio</h2>
@@ -388,14 +566,17 @@
 
           <!-- Interactive Action Buttons -->
           <div class="studio-playback-actions">
-            <button class="btn-studio-action active" id="ask-question-btn">
-              <i data-lucide="play-circle"></i> Ask Zoho LLD
+            <button class="btn-studio-action active" id="ask-question-btn" title="AI Interviewer speaks Zoho question aloud">
+              <i data-lucide="volume-2"></i> <span>Ask Zoho (Voice)</span>
             </button>
-            <button class="btn-studio-action" id="ask-question-google-btn">
-              <i data-lucide="play-circle"></i> Ask Google Graph
+            <button class="btn-studio-action" id="ask-question-google-btn" title="AI Interviewer speaks Google question aloud">
+              <i data-lucide="volume-2"></i> <span>Ask Google (Voice)</span>
             </button>
-            <button class="btn-studio-action" id="simulate-user-reply-btn">
-              <i data-lucide="mic"></i> Candidate Speech
+            <button class="btn-studio-action" id="simulate-user-reply-btn" title="Candidate answer spoken aloud">
+              <i data-lucide="volume-1"></i> <span>Candidate Voice</span>
+            </button>
+            <button class="btn-studio-action" id="real-mic-speak-btn" title="Click and speak with your actual microphone">
+              <i data-lucide="mic" id="real-mic-icon"></i> <span id="real-mic-label">Speak With Mic</span>
             </button>
           </div>
         </div>
@@ -447,7 +628,7 @@
   </section>
 
   <!-- SHOWSTOPPER 2: INTERACTIVE 3D CTC & SALARY PREDICTOR -->
-  <section class="section-container" id="salary-calculator">
+  <section class="section-container reveal-on-scroll" id="salary-calculator">
     <div class="salary-predictor-card card-3d-tilt">
       <div class="calc-header text-center">
         <div class="section-tag"><i data-lucide="trending-up"></i> REAL-TIME ROI PREDICTOR</div>
@@ -538,7 +719,7 @@
   </section>
 
   <!-- SHOWSTOPPER 3: HACKATHON CHAMPIONSHIP ARENA (WITH 3D TROPHY ASSET) -->
-  <section class="section-container" id="hackathons">
+  <section class="section-container reveal-on-scroll" id="hackathons">
     <div class="hackathon-arena-wrapper card-3d-tilt">
       <div class="arena-left-details">
         <div class="hackathon-banner-tag">
@@ -611,7 +792,7 @@
   </section>
 
   <!-- LIVE COMPANY TRACKS ARCHITECTURE -->
-  <section class="section-container" id="company-tracks">
+  <section class="section-container reveal-on-scroll" id="company-tracks">
     <div class="section-header text-center">
       <div class="section-tag"><i data-lucide="cpu"></i> COMPANY-SPECIFIC ARCHITECTURES</div>
       <h2 class="section-title">Target Your Dream Tech Giant with Pinpoint Precision</h2>
@@ -723,7 +904,7 @@
   </section>
 
   <!-- 3D LIVE CODE ARENA & REAL-TIME ALGORITHM TESTER -->
-  <section class="section-container arena-wrap" id="arena-section">
+  <section class="section-container arena-wrap reveal-on-scroll" id="arena-section">
     <div class="arena-showcase-grid">
       
       <!-- Left: Interactive Live Mini-IDE -->
@@ -822,7 +1003,7 @@
   </section>
 
   <!-- 3D FEATURE GRID / BENTO CAPABILITIES -->
-  <section class="section-container" id="features">
+  <section class="section-container reveal-on-scroll" id="features">
     <div class="section-header text-center">
       <div class="section-tag"><i data-lucide="boxes"></i> UNRIVALED PLATFORM CAPABILITIES</div>
       <h2 class="section-title">Built Different. Engineered for Impact.</h2>
@@ -836,8 +1017,8 @@
         <div class="feature-icon-box yellow-glow">
           <i data-lucide="bot"></i>
         </div>
-        <h4>Autonomous Dexter Co-Pilot</h4>
-        <p>A personal AI mentor that tracks weak spots in Trees, DP or SQL, and generates bespoke daily drill challenges.</p>
+        <h4>Autonomous Koda AI Bestie</h4>
+        <p>A friendly, personal AI companion that tracks weak spots in Trees, DP or SQL, and generates bespoke daily drill challenges.</p>
         <div class="feature-chip">24/7 AI Availability</div>
       </div>
 
@@ -895,7 +1076,7 @@
   </section>
 
   <!-- INTERACTIVE LIVE CHAT / ROADMAP GENERATOR -->
-  <section class="section-container" id="interactive-chat">
+  <section class="section-container reveal-on-scroll" id="interactive-chat">
     <div class="interactive-mentor-station card-3d-tilt">
       <div class="station-left">
         <div class="station-badge"><i data-lucide="sparkles"></i> LIVE AI ROADMAP ENGINE</div>
@@ -973,7 +1154,7 @@
   </section>
 
   <!-- INSTITUTIONAL / COLLEGE MOU SECTION -->
-  <section class="section-container" id="colleges">
+  <section class="section-container reveal-on-scroll" id="colleges">
     <div class="section-header text-center">
       <div class="section-tag"><i data-lucide="award"></i> ACADEMIC PARTNERSHIPS</div>
       <h2 class="section-title">Institutional MOUs & College Placement Cell Solutions</h2>
@@ -1013,7 +1194,7 @@
   </section>
 
   <!-- TESTIMONIALS & PLACEMENT HALL OF FAME -->
-  <section class="section-container" id="hall-of-fame">
+  <section class="section-container reveal-on-scroll" id="hall-of-fame">
     <div class="section-header text-center">
       <div class="section-tag"><i data-lucide="trophy"></i> WALL OF ACHIEVERS</div>
       <h2 class="section-title">From "Help Me Get Placed" to Offer Letter in Hand</h2>
@@ -1080,6 +1261,17 @@
         <i data-lucide="check-circle-2"></i> Enroll in this 8-Week AI Sprint Free
       </button>
     </div>
+  </div>
+
+  <!-- FLOATING KODA COMPANION WIDGET (UNIQUE FRIENDLY BOT) -->
+  <div class="floating-koda-widget" id="floating-koda-widget">
+    <div class="floating-koda-tooltip" id="floating-koda-tooltip">
+      <span>👋 Hi! Need quick advice? Click me!</span>
+    </div>
+    <button class="floating-koda-button" id="floating-koda-btn" title="Chat with Koda" aria-label="Open Koda AI Assistant">
+      <img src="assets/robot_mentor.jpg" alt="Koda Helper">
+      <span class="koda-live-glow"></span>
+    </button>
   </div>
 
   <!-- CREATIVE NEO-FOOTER -->
