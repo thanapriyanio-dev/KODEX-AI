@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KODEX AI — The Cognitive Career Operating System for Top Tech Dream Roles</title>
+  <meta name="description" content="Crack Tier-1 tech placements at Zoho, Google, Microsoft & Uber. Interactive 3D system blueprints, real-time voice telemetry, algorithm duel arena & CTC predictor.">
+  
+  <!-- Modern Typography: Outfit, Plus Jakarta Sans, Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Three.js for Interactive 3D Ambient WebGL Experience -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- Canvas Confetti for Interactive Celebrations -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-cyber">
+
+  <!-- Custom Glowing Cursor & Magnetic Follower -->
+  <div class="custom-cursor-dot" id="cursor-dot"></div>
+  <div class="custom-cursor-ring" id="cursor-ring"></div>
+
+  <!-- Ambient 3D Three.js WebGL Background Canvas -->
+  <canvas id="ambient-3d-canvas"></canvas>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="announcement-content">
+      <span class="badge-live"><span class="pulse-dot"></span> LIVE 2026 PLACEMENT DRIVE</span>
+      <span>⚡ <strong>1,480+ verified offers</strong> unlocked this week at Zoho, Google, Uber & Atlassian!</span>
+      <a href="#company-tracks" class="link-styled">Explore Track Roadmaps &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Primary Navigation (Ultra-Glassmorphic) -->
+  <header class="navbar-container">
+    <nav class="navbar" id="main-nav">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-logo" id="brand-logo">
+        <div class="logo-icon-wrap">
+          <i data-lucide="cpu"></i>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">Kodex<span class="logo-ai-tag">AI</span></span>
+          <span class="logo-sub">CAREER COGNITIVE OS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="nav-links">
+        <a href="#hero" class="nav-link active"><i data-lucide="compass"></i> Overview</a>
+        
+        <div class="nav-dropdown-wrapper">
+          <a href="#company-tracks" class="nav-link dropdown-toggle">
+            <i data-lucide="layers"></i> Placement Tracks <i data-lucide="chevron-down" class="chevron"></i>
+          </a>
+          <div class="nav-dropdown-menu">
+            <a href="#hero" class="dropdown-item" data-switch-company="zoho">
+              <span class="comp-icon zoho">Z</span>
+              <div>
+                <strong>Zoho Corp</strong>
+                <span>Software Craftsman & Advanced DSA</span>
+              </div>
+            </a>
+            <a href="#hero" class="dropdown-item" data-switch-company="google">
+              <span class="comp-icon google">G</span>
+              <div>
+                <strong>Google</strong>
+                <span>L3 / L4 Systems & Graph Algorithms</span>
+              </div>
+            </a>
+            <a href="#hero" class="dropdown-item" data-switch-company="microsoft">
+              <span class="comp-icon msft">M</span>
+              <div>
+                <strong>Microsoft</strong>
+                <span>Core SWE, Cloud & System Design</span>
+              </div>
+            </a>
+            <a href="#hero" class="dropdown-item" data-switch-company="amazon">
+              <span class="comp-icon amzn">A</span>
+              <div>
+                <strong>Amazon</strong>
+                <span>Leadership Principles & SDE Rounds</span>
+              </div>
+            </a>
+            <a href="#hero" class="dropdown-item" data-switch-company="uber">
+              <span class="comp-icon" style="background:#000;">U</span>
+              <div>
+                <strong>Uber</strong>
+                <span>Distributed Systems & High-Scale</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <a href="#voice-studio-section" class="nav-link"><i data-lucide="mic"></i> Voice Studio</a>
+        <a href="#salary-calculator" class="nav-link"><i data-lucide="calculator"></i> CTC Predictor</a>
+        <a href="#arena-section" class="nav-link"><i data-lucide="terminal"></i> 3D Code Arena</a>
+        <a href="#hackathons" class="nav-link"><i data-lucide="trophy"></i> Hackathon Cup</a>
+        <a href="#colleges" class="nav-link"><i data-lucide="building-2"></i> For Colleges</a>
+      </div>
+
+      <!-- Action Buttons & Theme Palette -->
+      <div class="nav-actions">
+        
+        <!-- Creative Theme Palette Selector -->
+        <div class="theme-selector-wrap" id="theme-selector-wrap">
+          <button class="theme-pill-btn" id="theme-pill-btn" title="Choose Creative Visual Theme">
+            <i data-lucide="palette"></i>
+            <span id="current-theme-label">Cyber Void</span>
+            <i data-lucide="chevron-down" style="width:14px; height:14px;"></i>
+          </button>
+          <div class="theme-menu">
+            <button class="theme-opt-btn active" data-theme="cyber">
+              <span class="theme-dot cyber"></span>
+              <span>🌌 Cyber Void</span>
+            </button>
+            <button class="theme-opt-btn" data-theme="nebula">
+              <span class="theme-dot nebula"></span>
+              <span>🔮 Cosmic Nebula</span>
+            </button>
+            <button class="theme-opt-btn" data-theme="emerald">
+              <span class="theme-dot emerald"></span>
+              <span>🌿 Emerald Matrix</span>
+            </button>
+            <button class="theme-opt-btn" data-theme="solar">
+              <span class="theme-dot solar"></span>
+              <span>☀️ Solar Platinum</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sound FX Toggle -->
+        <button id="sound-toggle-btn" class="icon-btn-round" title="Toggle Sound FX" aria-label="Toggle Sound Effects">
+          <i data-lucide="volume-2" id="sound-icon"></i>
+        </button>
+
+        <!-- Primary CTA -->
+        <a href="#voice-studio-section" class="btn-primary-bold" id="cta-dashboard-nav">
+          <i data-lucide="sparkles"></i>
+          <span>Initialize AI Matrix</span>
+          <span class="hotkey-pill">PRO</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- LIVE REAL-TIME PLACEMENT TICKER -->
+  <div class="live-ticker-wrap">
+    <div class="ticker-badge"><i data-lucide="radio"></i> LIVE VERIFIED HIRES</div>
+    <div class="ticker-track">
+      <div class="ticker-content" id="ticker-content">
+        <span class="ticker-item"><strong class="t-name">Kavitha R. (CEG Chennai)</strong> placed at <strong>Zoho Corp</strong> (₹14.5 LPA) • 2 mins ago</span>
+        <span class="ticker-item"><strong class="t-name">Siddharth M. (VIT Vellore)</strong> cracked <strong>Google SWE L3</strong> (₹38.2 LPA) • 5 mins ago</span>
+        <span class="ticker-item"><strong class="t-name">Preeti K. (SRM KTR)</strong> placed at <strong>Microsoft Core</strong> (₹26.0 LPA) • 8 mins ago</span>
+        <span class="ticker-item"><strong class="t-name">Arun V. (PSG Tech)</strong> cracked <strong>Amazon SDE-1</strong> (₹31.5 LPA) • 11 mins ago</span>
+        <span class="ticker-item"><strong class="t-name">Meera S. (Thapar)</strong> placed at <strong>Uber Systems</strong> (₹42.0 LPA) • 14 mins ago</span>
+        <span class="ticker-item"><strong class="t-name">Harish B. (IIT Madras)</strong> placed at <strong>Zoho Tenkasi</strong> (₹16.0 LPA) • 18 mins ago</span>
+        <span class="ticker-item"><strong class="t-name">Kavitha R. (CEG Chennai)</strong> placed at <strong>Zoho Corp</strong> (₹14.5 LPA) • 2 mins ago</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO SECTION: DIMENSIONAL AI COMMAND CENTER (SHOWSTOPPER) -->
+  <section class="hero-section" id="hero">
+    <div class="hero-main-grid">
+      
+      <!-- Left Column: Vision & Master Pitch -->
+      <div class="hero-left-content">
+        
+        <div class="hero-badge-container">
+          <div class="floating-pill-badge">
+            <span class="star-sparkle">✦</span>
+            <span>NEXT-GEN AI PLACEMENT OPERATING SYSTEM 3.0</span>
+            <span class="pill-metric">99.4% Pass Rate</span>
+          </div>
+        </div>
+
+        <h1 class="hero-headline">
+          <span class="headline-gradient-white">Master the Engineering Edge.</span>
+          <span class="headline-gradient-vibrant">Land Your Dream 1% Role.</span>
+        </h1>
+
+        <p class="hero-description">
+          Reverse-engineer hiring rubrics at Zoho, Google, Microsoft, and tier-1 tech giants. Practice in interactive 3D simulation with live voice telemetry, algorithmic battle arena, and predictive CTC intelligence.
+        </p>
+
+        <!-- Target Company Interactive Strip -->
+        <div class="target-company-strip">
+          <div class="strip-label-row">
+            <span class="strip-title"><i data-lucide="target"></i> Select Dream Company Target:</span>
+            <span class="strip-status"><span class="pulse-dot"></span> 2026 Blueprints Calibrated</span>
+          </div>
+          
+          <div class="company-pills-row">
+            <button class="comp-pill-btn active" data-company="zoho">🏢 Zoho Corp</button>
+            <button class="comp-pill-btn" data-company="google">⚡ Google</button>
+            <button class="comp-pill-btn" data-company="microsoft">🚀 Microsoft</button>
+            <button class="comp-pill-btn" data-company="amazon">📦 Amazon</button>
+            <button class="comp-pill-btn" data-company="uber">🚗 Uber</button>
+          </div>
+
+          <!-- Dynamic Active Company Blueprint Telemetry -->
+          <div class="active-target-summary" id="hero-target-summary">
+            <div class="target-meta-left">
+              <strong id="hero-target-role">Zoho Corp: Software Craftsman & Member Technical Staff</strong>
+              <span id="hero-target-focus">Focus: C/Java Pointers, Zero-Library Strings, LLD (Railway/Taxi CLI)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div class="target-salary-badge" id="hero-target-salary">₹12.0 – ₹18.0 LPA</div>
+              <button class="btn-sm-roadmap" id="view-roadmap-trigger" title="View Full 8-Week Blueprint">
+                <i data-lucide="map"></i> Roadmap
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Action CTAs -->
+        <div class="hero-cta-buttons">
+          <a href="#interactive-chat" class="btn-hero-launch">
+            <i data-lucide="zap"></i>
+            <span>Initialize AI Assessment</span>
+            <i data-lucide="arrow-right"></i>
+          </a>
+          <a href="#voice-studio-section" class="btn-hero-secondary">
+            <i data-lucide="play-circle"></i>
+            <span>Launch Live Voice Studio</span>
+          </a>
+        </div>
+
+        <!-- Hero Trust Metrics -->
+        <div class="hero-trust-metrics">
+          <div class="trust-item">
+            <span class="trust-num cyan">48,500+</span>
+            <span class="trust-lbl">Offers Unlocked</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-num emerald">₹52 LPA</span>
+            <span class="trust-lbl">Peak 2026 Package</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-num violet">98.7%</span>
+            <span class="trust-lbl">Interview Clearance</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-num">4.98 / 5</span>
+            <span class="trust-lbl">From 340+ Colleges</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: 3D Dimensional Interactive AI Cockpit -->
+      <div class="hero-cockpit-wrapper">
+        <div class="cockpit-card-3d card-3d-tilt" id="cockpit-card">
+          
+          <!-- Cockpit Top Bar -->
+          <div class="cockpit-top-bar">
+            <div class="cockpit-identity">
+              <div class="cockpit-avatar-icon">
+                <i data-lucide="bot"></i>
+              </div>
+              <div>
+                <strong>Dex AI Autonomous Co-Pilot</strong>
+                <small><span class="pulse-dot"></span> Neural Engine Active</small>
+              </div>
+            </div>
+            <span class="cockpit-latency-pill">⚡ 12ms AI Latency</span>
+          </div>
+
+          <!-- Live Voice Waveform Module -->
+          <div class="voice-cockpit-module">
+            <div class="v-module-header">
+              <span><i data-lucide="audio-waveform"></i> Voice Clarity & Stress Telemetry</span>
+              <span class="v-status-live"><span class="pulse-dot"></span> Live Audio Stream</span>
+            </div>
+            
+            <div class="waveform-canvas-box">
+              <canvas id="cockpit-waveform-canvas"></canvas>
+            </div>
+
+            <div class="telemetry-mini-grid">
+              <div class="t-metric">
+                <span>Logic Precision</span>
+                <strong class="green">98.4%</strong>
+              </div>
+              <div class="t-metric">
+                <span>Voice Clarity</span>
+                <strong>96.2%</strong>
+              </div>
+              <div class="t-metric">
+                <span>Filler Words</span>
+                <strong class="violet">&lt; 0.2%</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Code Snippet / Kernel Execution -->
+          <div class="code-cockpit-module">
+            <div class="code-cockpit-top">
+              <div class="code-dots">
+                <span class="dot-red"></span>
+                <span class="dot-yellow"></span>
+                <span class="dot-green"></span>
+              </div>
+              <span class="code-title">placement_kernel.py — Python 3.12</span>
+              <button class="btn-code-execute" id="cockpit-run-btn">
+                <i data-lucide="play"></i> Run Analysis
+              </button>
+            </div>
+            
+            <pre class="code-pre-box"><code><span class="c-cm"># Kodex AI Placement Optimization Engine</span>
+<span class="c-kw">def</span> <span class="c-fn">accelerate_placement</span>(candidate, target=<span class="c-str">"ZOHO"</span>):
+    syllabus = ai_copilot.load_rubric(target, year=<span class="c-str">"2026"</span>)
+    <span class="c-kw">return</span> candidate.master(syllabus, stress_test=<span class="c-kw">True</span>)</code></pre>
+
+            <div class="code-exec-output" id="cockpit-exec-output">
+              <span><i data-lucide="check-circle-2"></i> Ready for execution test suite</span>
+              <strong>CLICK [RUN ANALYSIS]</strong>
+            </div>
+          </div>
+
+          <!-- Floating Holographic Foil Badge -->
+          <div class="foil-badge-float">
+            <div class="foil-icon">
+              <i data-lucide="check"></i>
+            </div>
+            <div class="foil-info">
+              <strong>Zoho SDE-II Offer Unlocked</strong>
+              <span>₹16.8 LPA • Tenkasi Campus</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SHOWSTOPPER 1: LIVE AI VOICE MOCK INTERVIEW STUDIO -->
+  <section class="section-container" id="voice-studio-section">
+    <div class="section-header text-center">
+      <div class="section-tag"><i data-lucide="mic"></i> REAL-TIME INTERACTIVE SIMULATION</div>
+      <h2 class="section-title">Experience Dex AI Live Voice Mock Studio</h2>
+      <p class="section-desc">Don't just solve problems on paper. Practice speaking with an AI interviewer that questions your edge cases, evaluates voice clarity, and detects hesitations in real time.</p>
+    </div>
+
+    <div class="voice-studio-container card-3d-tilt">
+      <!-- Studio Header Controls -->
+      <div class="studio-topbar">
+        <div class="studio-live-badge"><span class="pulse-dot-red"></span> SESSION SIMULATOR #842</div>
+        <div class="studio-room-title">Mock Interview: Zoho Software Craftsman (Round 3 LLD)</div>
+        <div class="studio-controls-right">
+          <span class="latency-pill"><i data-lucide="activity"></i> 14ms AI Latency</span>
+        </div>
+      </div>
+
+      <!-- Studio Grid: Left Simulated Video Feed / Right AI Transcription & Analysis -->
+      <div class="studio-grid">
+        
+        <!-- Left: Dex AI Simulated Video Feed & Waveform -->
+        <div class="studio-video-card">
+          <div class="video-feed-wrapper">
+            <img src="assets/robot_mentor.jpg" alt="Dex AI Interviewer" class="studio-bot-video" id="studio-bot-img">
+            
+            <!-- Live Audio Visualizer Canvas -->
+            <div class="waveform-overlay">
+              <canvas id="voice-waveform-canvas"></canvas>
+            </div>
+
+            <div class="speaker-tag">
+              <i data-lucide="bot"></i> Dex AI Interviewer (Zoho Specialist)
+            </div>
+          </div>
+
+          <!-- Interactive Action Buttons -->
+          <div class="studio-playback-actions">
+            <button class="btn-studio-action active" id="ask-question-btn">
+              <i data-lucide="play-circle"></i> Ask Zoho LLD
+            </button>
+            <button class="btn-studio-action" id="ask-question-google-btn">
+              <i data-lucide="play-circle"></i> Ask Google Graph
+            </button>
+            <button class="btn-studio-action" id="simulate-user-reply-btn">
+              <i data-lucide="mic"></i> Candidate Speech
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Real-time Transcript & AI Real-Time HUD Scoring -->
+        <div class="studio-hud-card">
+          <div class="hud-header">
+            <h4><i data-lucide="cpu"></i> Real-Time AI Telemetry</h4>
+            <span class="hud-score-badge" id="hud-composite-score">98.2 / 100</span>
+          </div>
+
+          <!-- Live Metrics Gauges -->
+          <div class="hud-metrics-grid">
+            <div class="hud-metric-box">
+              <span class="m-label">Logic Soundness</span>
+              <strong class="m-val green" id="metric-logic">99%</strong>
+              <div class="progress-bar-wrap"><div class="progress-fill green-fill" style="width: 99%"></div></div>
+            </div>
+            <div class="hud-metric-box">
+              <span class="m-label">Voice Confidence</span>
+              <strong class="m-val yellow" id="metric-conf">94%</strong>
+              <div class="progress-bar-wrap"><div class="progress-fill yellow-fill" style="width: 94%"></div></div>
+            </div>
+            <div class="hud-metric-box">
+              <span class="m-label">Filler Words</span>
+              <strong class="m-val blue" id="metric-filler">&lt; 0.5%</strong>
+              <div class="progress-bar-wrap"><div class="progress-fill blue-fill" style="width: 98%"></div></div>
+            </div>
+            <div class="hud-metric-box">
+              <span class="m-label">Corner Case Check</span>
+              <strong class="m-val purple" id="metric-corner">Passed (4/4)</strong>
+              <div class="progress-bar-wrap"><div class="progress-fill purple-fill" style="width: 100%"></div></div>
+            </div>
+          </div>
+
+          <!-- Live Dialogue Stream -->
+          <div class="transcript-box">
+            <div class="transcript-label"><i data-lucide="file-text"></i> Live Transcript & Analysis</div>
+            <div class="transcript-messages" id="studio-transcript-box">
+              <div class="t-msg bot">
+                <strong>Dex AI:</strong> "Welcome Karthik! Let's begin Zoho Round 3. How would you architect a Railway Reservation System with waiting lists without using external collection libraries?"
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWSTOPPER 2: INTERACTIVE 3D CTC & SALARY PREDICTOR -->
+  <section class="section-container" id="salary-calculator">
+    <div class="salary-predictor-card card-3d-tilt">
+      <div class="calc-header text-center">
+        <div class="section-tag"><i data-lucide="trending-up"></i> REAL-TIME ROI PREDICTOR</div>
+        <h2 class="section-title">Calculate Your 2026 Campus Placement Value</h2>
+        <p class="section-desc">See how Kodex AI training transforms your starting CTC based on your current preparation phase.</p>
+      </div>
+
+      <div class="calc-interactive-grid">
+        <!-- Left: Sliders -->
+        <div class="calc-controls">
+          <!-- Slider 1 -->
+          <div class="control-group">
+            <div class="control-labels">
+              <span>Your Current College Year & Branch:</span>
+              <strong id="year-display">3rd Year (Interview Sprint)</strong>
+            </div>
+            <input type="range" id="slider-experience" min="1" max="4" value="3" class="custom-range-slider">
+            <div class="range-ticks">
+              <span>1st Year</span>
+              <span>2nd Year</span>
+              <span>3rd Year</span>
+              <span>Final Year</span>
+            </div>
+          </div>
+
+          <!-- Slider 2 -->
+          <div class="control-group">
+            <div class="control-labels">
+              <span>Daily Practice Hours on Kodex:</span>
+              <strong id="hours-display">2.5 Hours / Day</strong>
+            </div>
+            <input type="range" id="slider-hours" min="1" max="6" step="0.5" value="2.5" class="custom-range-slider">
+            <div class="range-ticks">
+              <span>1 hr</span>
+              <span>2 hrs</span>
+              <span>3 hrs</span>
+              <span>4 hrs</span>
+              <span>5 hrs</span>
+              <span>6 hrs</span>
+            </div>
+          </div>
+
+          <!-- Selector: Target Role -->
+          <div class="control-group">
+            <div class="control-labels">
+              <span>Target Tier:</span>
+              <strong id="tier-display">Tier-1 Product (Zoho, Swiggy, Freshworks)</strong>
+            </div>
+            <div class="tier-buttons-row">
+              <button class="tier-sel-btn active" data-tier="product">Product (₹12-18L)</button>
+              <button class="tier-sel-btn" data-tier="faang">FAANG / Tier-1 (₹28-45L)</button>
+              <button class="tier-sel-btn" data-tier="startup">High Growth Unicorn (₹16-24L)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Animated CTC Dial & Projected Metrics -->
+        <div class="calc-results-dial">
+          <div class="dial-circle-wrap">
+            <div class="dial-inner">
+              <span class="dial-sub">PROJECTED PACKAGE</span>
+              <h2 class="dial-ctc-number" id="dial-ctc-display">₹16.8 LPA</h2>
+              <span class="dial-delta" id="dial-delta-display">+280% vs Campus Average</span>
+            </div>
+          </div>
+
+          <div class="calc-metrics-row">
+            <div class="calc-metric-pill">
+              <span class="cmp-label">Preparation Time</span>
+              <strong id="calc-prep-time">8 Weeks</strong>
+            </div>
+            <div class="calc-metric-pill">
+              <span class="cmp-label">Pass Probability</span>
+              <strong class="highlight-green" id="calc-probability">98.4%</strong>
+            </div>
+            <div class="calc-metric-pill">
+              <span class="cmp-label">Mock Rounds</span>
+              <strong id="calc-rounds">16 Sessions</strong>
+            </div>
+          </div>
+
+          <button class="btn-primary-bold w-full" id="lock-ctc-btn">
+            <i data-lucide="lock"></i> Lock In My Target Package Free
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWSTOPPER 3: HACKATHON CHAMPIONSHIP ARENA (WITH 3D TROPHY ASSET) -->
+  <section class="section-container" id="hackathons">
+    <div class="hackathon-arena-wrapper card-3d-tilt">
+      <div class="arena-left-details">
+        <div class="hackathon-banner-tag">
+          <span class="pulse-dot-red"></span> NATIONAL HACKATHON CHAMPIONSHIP 2026
+        </div>
+        <h2>CodePulse 2026: 48-Hour National AI Placement Sprint</h2>
+        <p>
+          Compete against 12,000+ top college coders across India. The top 50 finalists receive <strong>direct fast-track interview rounds</strong> with hiring sponsors including Zoho, Chargebee, and Freshworks!
+        </p>
+
+        <!-- Prize Pool Stats -->
+        <div class="prize-stats-grid">
+          <div class="prize-stat-box">
+            <span class="ps-label">TOTAL PRIZE POOL</span>
+            <strong class="ps-val">₹10,00,000+</strong>
+          </div>
+          <div class="prize-stat-box">
+            <span class="ps-label">DIRECT OFFERS</span>
+            <strong class="ps-val">50+ FAST-TRACKS</strong>
+          </div>
+          <div class="prize-stat-box">
+            <span class="ps-label">COLLEGES REGISTERED</span>
+            <strong class="ps-val">340+ CAMPUSES</strong>
+          </div>
+        </div>
+
+        <!-- Live Countdown Timer -->
+        <div class="countdown-timer-box">
+          <div class="time-block">
+            <span class="time-val" id="timer-days">04</span>
+            <span class="time-lbl">Days</span>
+          </div>
+          <span class="time-divider">:</span>
+          <div class="time-block">
+            <span class="time-val" id="timer-hours">16</span>
+            <span class="time-lbl">Hours</span>
+          </div>
+          <span class="time-divider">:</span>
+          <div class="time-block">
+            <span class="time-val" id="timer-minutes">32</span>
+            <span class="time-lbl">Mins</span>
+          </div>
+          <span class="time-divider">:</span>
+          <div class="time-block">
+            <span class="time-val" id="timer-seconds">59</span>
+            <span class="time-lbl">Secs</span>
+          </div>
+        </div>
+
+        <div class="banner-ctas">
+          <button class="btn-primary-bold" id="register-hackathon-btn">
+            <i data-lucide="trophy"></i> Register Team For Hackathon
+          </button>
+          <a href="#colleges" class="btn-secondary-outline">
+            <i data-lucide="school"></i> Partner Your College (MOU)
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Magnificent 3D Championship Trophy Artwork -->
+      <div class="arena-right-trophy">
+        <div class="trophy-artwork-container">
+          <img src="assets/hackathon_trophy.jpg" alt="National Hackathon Championship 3D Trophy" class="trophy-img" id="trophy-img">
+          <div class="floating-trophy-badge">
+            <i data-lucide="sparkles"></i> 1st Prize: ₹5,00,000 + Zoho Final Round Fast-Track
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE COMPANY TRACKS ARCHITECTURE -->
+  <section class="section-container" id="company-tracks">
+    <div class="section-header text-center">
+      <div class="section-tag"><i data-lucide="cpu"></i> COMPANY-SPECIFIC ARCHITECTURES</div>
+      <h2 class="section-title">Target Your Dream Tech Giant with Pinpoint Precision</h2>
+      <p class="section-desc">Every company evaluates coders differently. Our AI calibrates real historical interview questions, round structures, and coding patterns.</p>
+    </div>
+
+    <div class="tracks-grid">
+      
+      <!-- Track 1: Zoho Software Craftsman -->
+      <div class="track-card featured-track card-3d-tilt" data-track="zoho">
+        <div class="track-header">
+          <div class="track-brand">
+            <span class="track-logo-pill zoho-pill">ZOHO</span>
+            <span class="track-badge hot">🔥 High Hiring Season</span>
+          </div>
+          <div class="track-ctc">₹8.5 – 16 LPA</div>
+        </div>
+        <h3 class="track-title">Zoho Software Craftsman & MTS</h3>
+        <p class="track-summary">Emphasis on pure programming fundamentals without STL/libraries, matrix algorithms, custom data structures, and rigorous Round 2/3 problem sets.</p>
+        
+        <div class="track-metrics-list">
+          <div class="metric-row">
+            <span><i data-lucide="layers"></i> Rounds</span>
+            <strong>Round 1 (Apt) &rarr; Round 2 (Basic) &rarr; Round 3 (Adv)</strong>
+          </div>
+          <div class="metric-row">
+            <span><i data-lucide="check-circle-2"></i> Key Focus</span>
+            <strong>Pointers, String Parsers, Maze Traversal, LLD</strong>
+          </div>
+          <div class="metric-row">
+            <span><i data-lucide="users"></i> Placed via Kodex</span>
+            <strong class="highlight-num">482 students (2025-26)</strong>
+          </div>
+        </div>
+
+        <button class="btn-track-action" data-company="zoho">
+          <span>Launch Zoho Blueprint</span>
+          <i data-lucide="chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Track 2: Google SWE / L3-L4 -->
+      <div class="track-card card-3d-tilt" data-track="google">
+        <div class="track-header">
+          <div class="track-brand">
+            <span class="track-logo-pill google-pill">GOOGLE</span>
+            <span class="track-badge elite">⚡ Tier 1 Global</span>
+          </div>
+          <div class="track-ctc">₹32 – 55 LPA</div>
+        </div>
+        <h3 class="track-title">Google Software Engineer (L3/L4)</h3>
+        <p class="track-summary">Deep dive into complex graph algorithms, dynamic programming states, Googleyness behavioral, and edge case mastery under 45-minute strict timers.</p>
+        
+        <div class="track-metrics-list">
+          <div class="metric-row">
+            <span><i data-lucide="layers"></i> Rounds</span>
+            <strong>Screening &rarr; 3x Coding (Graphs/DP) &rarr; Googlyness</strong>
+          </div>
+          <div class="metric-row">
+            <span><i data-lucide="check-circle-2"></i> Key Focus</span>
+            <strong>Topological Sort, Dijkstra, Bitmask DP, Scale</strong>
+          </div>
+          <div class="metric-row">
+            <span><i data-lucide="users"></i> Placed via Kodex</span>
+            <strong class="highlight-num">96 students (2025-26)</strong>
+          </div>
+        </div>
+
+        <button class="btn-track-action" data-company="google">
+          <span>Launch Google Blueprint</span>
+          <i data-lucide="chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Track 3: Microsoft SDE -->
+      <div class="track-card card-3d-tilt" data-track="microsoft">
+        <div class="track-header">
+          <div class="track-brand">
+            <span class="track-logo-pill msft-pill">MICROSOFT</span>
+            <span class="track-badge popular">💼 Campus Favorite</span>
+          </div>
+          <div class="track-ctc">₹18 – 42 LPA</div>
+        </div>
+        <h3 class="track-title">Microsoft SDE Core & Azure Cloud</h3>
+        <p class="track-summary">Mastering trees, linked lists, distributed concepts, clean object-oriented architecture, and production-ready exception handling.</p>
+        
+        <div class="track-metrics-list">
+          <div class="metric-row">
+            <span><i data-lucide="layers"></i> Rounds</span>
+            <strong>OA Codility &rarr; 2 Tech Rounds &rarr; AA Director</strong>
+          </div>
+          <div class="metric-row">
+            <span><i data-lucide="check-circle-2"></i> Key Focus</span>
+            <strong>Binary Trees, LRU Cache, Concurrency, Clean Code</strong>
+          </div>
+          <div class="metric-row">
+            <span><i data-lucide="users"></i> Placed via Kodex</span>
+            <strong class="highlight-num">214 students (2025-26)</strong>
+          </div>
+        </div>
+
+        <button class="btn-track-action" data-company="microsoft">
+          <span>Launch Microsoft Blueprint</span>
+          <i data-lucide="chevron-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3D LIVE CODE ARENA & REAL-TIME ALGORITHM TESTER -->
+  <section class="section-container arena-wrap" id="arena-section">
+    <div class="arena-showcase-grid">
+      
+      <!-- Left: Interactive Live Mini-IDE -->
+      <div class="ide-container card-3d-tilt">
+        <div class="ide-top-bar">
+          <div class="ide-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="ide-tab">
+            <i data-lucide="file-code-2"></i> zoho_round2_spiral.java
+          </div>
+          <div class="ide-actions">
+            <span class="language-pill">Java 21</span>
+            <button id="run-code-btn" class="btn-run-code">
+              <i data-lucide="play"></i> Run & Test
+            </button>
+          </div>
+        </div>
+
+        <!-- Code Editor Surface -->
+        <div class="ide-editor-area">
+          <div class="line-numbers">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span>
+          </div>
+          <pre class="code-content"><code id="code-snippet-display"><span class="c-keyword">public class</span> <span class="c-class">ZohoPatternSolver</span> {
+    <span class="c-comment">// Zoho Round 2: Print X pattern of odd length string</span>
+    <span class="c-keyword">public static void</span> <span class="c-func">solvePattern</span>(String str) {
+        <span class="c-keyword">int</span> len = str.length();
+        <span class="c-keyword">for</span> (<span class="c-keyword">int</span> i = 0; i &lt; len; i++) {
+            <span class="c-keyword">for</span> (<span class="c-keyword">int</span> j = 0; j &lt; len; j++) {
+                <span class="c-keyword">if</span> (j == i || j == (len - 1 - i)) {
+                    System.out.print(str.charAt(j));
+                } <span class="c-keyword">else</span> {
+                    System.out.print(<span class="c-str">" "</span>);
+                }
+            }
+            System.out.println();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <!-- Terminal Output Window -->
+        <div class="ide-terminal" id="ide-terminal-output">
+          <div class="terminal-bar">
+            <span><i data-lucide="terminal"></i> OUTPUT CONSOLE</span>
+            <span class="test-status" id="test-status-tag">Ready for execution</span>
+          </div>
+          <div class="terminal-body" id="terminal-body-text">
+            Click [Run & Test] to execute against Zoho 2026 Test Suite (Hidden test cases: 4/4)...
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: 3D Visual Asset & AI Evaluation Engine Card -->
+      <div class="arena-info-card card-3d-tilt">
+        <div class="arena-artwork-wrap">
+          <img src="assets/code_arena_3d.jpg" alt="3D Isometric AI Code Arena" class="arena-3d-img">
+          <div class="floating-rank-badge">
+            <i data-lucide="award"></i> Rank #1 Campus Leaderboard
+          </div>
+        </div>
+
+        <div class="arena-content">
+          <div class="feature-tag-yellow"><i data-lucide="zap"></i> INSTANT AI FEEDBACK</div>
+          <h3>The AI Evaluator That Thinks Like a Tech Lead</h3>
+          <p>
+            Standard platforms only check if test cases pass. Kodex AI evaluates <strong>Time Complexity O(N)</strong>, <strong>Space allocations</strong>, <strong>clean code discipline</strong>, and checks banned libraries.
+          </p>
+
+          <div class="feature-checklist">
+            <div class="check-item">
+              <i data-lucide="shield-check" class="check-icon"></i>
+              <span>Zero-Library Constraint Checker (Zoho Specific)</span>
+            </div>
+            <div class="check-item">
+              <i data-lucide="shield-check" class="check-icon"></i>
+              <span>Real-Time Voice AI Mock with Stress-Testing questions</span>
+            </div>
+            <div class="check-item">
+              <i data-lucide="shield-check" class="check-icon"></i>
+              <span>Automated Resume Bullet AI for ATS pass scores</span>
+            </div>
+          </div>
+
+          <a href="#interactive-chat" class="btn-primary-bold w-full text-center">
+            <i data-lucide="sparkles"></i> Try An Interactive AI Mock Session
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3D FEATURE GRID / BENTO CAPABILITIES -->
+  <section class="section-container" id="features">
+    <div class="section-header text-center">
+      <div class="section-tag"><i data-lucide="boxes"></i> UNRIVALED PLATFORM CAPABILITIES</div>
+      <h2 class="section-title">Built Different. Engineered for Impact.</h2>
+      <p class="section-desc">Everything an engineering student needs to bridge the gap between college theory and high-paying tech offers.</p>
+    </div>
+
+    <div class="features-3d-grid">
+      
+      <!-- Feature 1 -->
+      <div class="feature-box card-3d-tilt">
+        <div class="feature-icon-box yellow-glow">
+          <i data-lucide="bot"></i>
+        </div>
+        <h4>Autonomous Dexter Co-Pilot</h4>
+        <p>A personal AI mentor that tracks weak spots in Trees, DP or SQL, and generates bespoke daily drill challenges.</p>
+        <div class="feature-chip">24/7 AI Availability</div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-box card-3d-tilt">
+        <div class="feature-icon-box purple-glow">
+          <i data-lucide="mic-2"></i>
+        </div>
+        <h4>Voice AI Mock Interviews</h4>
+        <p>Simulate realistic technical and HR interviews with AI that probes your logic, detects pauses, and grades clarity.</p>
+        <div class="feature-chip">Speech-to-Code Tech</div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-box card-3d-tilt">
+        <div class="feature-icon-box blue-glow">
+          <i data-lucide="code"></i>
+        </div>
+        <h4>Round 2 & 3 Sandbox</h4>
+        <p>Master Low-Level Design (LLD) like Snake & Ladder, Splitwise, or Train Reservation systems asked at Zoho & Swiggy.</p>
+        <div class="feature-chip">Object-Oriented Design</div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-box card-3d-tilt">
+        <div class="feature-icon-box green-glow">
+          <i data-lucide="trophy"></i>
+        </div>
+        <h4>National Campus Hackathons</h4>
+        <p>Compete in weekly 48-hour sprints sponsored by hiring partners. Top 10 finalists get direct interview fast-tracks.</p>
+        <div class="feature-chip">Direct Offer Fast-Track</div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-box card-3d-tilt">
+        <div class="feature-icon-box orange-glow">
+          <i data-lucide="file-check"></i>
+        </div>
+        <h4>ATS Resume AI Transformer</h4>
+        <p>Transform your academic projects into bulletproof metrics-driven engineering achievements that trigger recruiter callbacks.</p>
+        <div class="feature-chip">99.2% ATS Pass Rate</div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-box card-3d-tilt">
+        <div class="feature-icon-box teal-glow">
+          <i data-lucide="graduation-cap"></i>
+        </div>
+        <h4>College MOU & Dean Dashboards</h4>
+        <p>Empower your entire engineering department with institutional analytics, batch progression, and automated placement tests.</p>
+        <div class="feature-chip">For Universities</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE LIVE CHAT / ROADMAP GENERATOR -->
+  <section class="section-container" id="interactive-chat">
+    <div class="interactive-mentor-station card-3d-tilt">
+      <div class="station-left">
+        <div class="station-badge"><i data-lucide="sparkles"></i> LIVE AI ROADMAP ENGINE</div>
+        <h2>Experience the Kodex AI Conversation Live</h2>
+        <p>Ask anything about placements, interview patterns, or how to prepare from Tier-3 colleges with zero prior background.</p>
+
+        <!-- Preset Prompts -->
+        <div class="chat-presets">
+          <span class="presets-title">Popular prompts to try:</span>
+          <button class="preset-btn" data-prompt="How do I crack Zoho Round 2 coding from zero?">
+            🎯 "How do I crack Zoho Round 2?"
+          </button>
+          <button class="preset-btn" data-prompt="I am in 3rd year with no projects. Where do I start?">
+            🚀 "3rd year student, zero projects. Where do I start?"
+          </button>
+          <button class="preset-btn" data-prompt="What are the top 5 dynamic programming patterns for Google?">
+            ⚡ "Top 5 DP patterns for Google"
+          </button>
+          <button class="preset-btn" data-prompt="Can a mechanical engineer get placed at Zoho as developer?">
+            💡 "Non-CS branch to Zoho Developer?"
+          </button>
+        </div>
+
+        <div class="guarantee-box">
+          <i data-lucide="shield-check"></i>
+          <div>
+            <strong>100% Placement Commitment</strong>
+            <p>Our guided path guarantees minimum 3 interview opportunities or 100% fee refund.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="station-right">
+        <!-- Live Chat Simulator Interface -->
+        <div class="chat-mockup-window">
+          <div class="chat-mockup-header">
+            <div class="bot-profile">
+              <div class="bot-avatar-circle">
+                <i data-lucide="bot"></i>
+                <span class="active-pulse"></span>
+              </div>
+              <div>
+                <strong>Dex AI Placement Bot</strong>
+                <small>Trained on 14,000+ real interview transcripts</small>
+              </div>
+            </div>
+            <div class="chat-window-actions">
+              <button class="chat-action-btn" id="clear-chat-btn" title="Clear Chat"><i data-lucide="rotate-ccw"></i></button>
+            </div>
+          </div>
+
+          <div class="chat-mockup-messages" id="chat-messages-container">
+            <div class="chat-msg bot-msg">
+              <div class="msg-avatar"><i data-lucide="bot"></i></div>
+              <div class="msg-bubble">
+                Hey there future engineer! 👋 I'm <strong>Dex</strong>. What company or package are you aiming for in the upcoming placement drive?
+              </div>
+            </div>
+          </div>
+
+          <form class="chat-mockup-input-bar" id="chat-form">
+            <input 
+              type="text" 
+              id="chat-user-input" 
+              placeholder="Ask Dex about Zoho rounds, DSA roadmap, resume tips..."
+              autocomplete="off"
+            >
+            <button type="submit" class="chat-send-btn" id="chat-send-btn" aria-label="Send Message">
+              <i data-lucide="send"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTITUTIONAL / COLLEGE MOU SECTION -->
+  <section class="section-container" id="colleges">
+    <div class="section-header text-center">
+      <div class="section-tag"><i data-lucide="award"></i> ACADEMIC PARTNERSHIPS</div>
+      <h2 class="section-title">Institutional MOUs & College Placement Cell Solutions</h2>
+      <p class="section-desc">Over 110+ engineering colleges rely on Kodex to supercharge their NIRF ranking and placement percentages.</p>
+    </div>
+
+    <div class="mou-perks-grid">
+      <div class="mou-perk-card card-3d-tilt">
+        <div class="mou-icon"><i data-lucide="line-chart"></i></div>
+        <h4>Dean & HOD Analytics</h4>
+        <p>Real-time visibility into which students are lagging in data structures, who is interview-ready, and predictive placement scores.</p>
+      </div>
+
+      <div class="mou-perk-card card-3d-tilt">
+        <div class="mou-icon"><i data-lucide="badge-percent"></i></div>
+        <h4>Guaranteed Campus Drives</h4>
+        <p>Partner institutions receive exclusive virtual and on-campus recruitment pools with verified hiring tech companies.</p>
+      </div>
+
+      <div class="mou-perk-card card-3d-tilt">
+        <div class="mou-icon"><i data-lucide="file-signature"></i></div>
+        <h4>Express MOU Signing</h4>
+        <p>Zero red tape. Get onboarded within 48 hours with turnkey faculty development workshops and student licensing.</p>
+      </div>
+    </div>
+
+    <!-- MOU Application Trigger -->
+    <div class="mou-cta-bar card-3d-tilt">
+      <div class="mou-cta-content">
+        <h3>Are you a TPO, Professor, or College Principal?</h3>
+        <p>Schedule a customized 20-minute platform demo and receive our 2026 Campus Placement Whitepaper.</p>
+      </div>
+      <button class="btn-primary-bold" id="apply-mou-btn">
+        <i data-lucide="file-check-2"></i> Apply for Institutional MOU
+      </button>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS & PLACEMENT HALL OF FAME -->
+  <section class="section-container" id="hall-of-fame">
+    <div class="section-header text-center">
+      <div class="section-tag"><i data-lucide="trophy"></i> WALL OF ACHIEVERS</div>
+      <h2 class="section-title">From "Help Me Get Placed" to Offer Letter in Hand</h2>
+      <p class="section-desc">Real stories of non-CS and Tier-3 engineers who cracked dream tech roles using Kodex AI.</p>
+    </div>
+
+    <div class="testimonials-slider">
+      <!-- Story 1 -->
+      <div class="story-card card-3d-tilt">
+        <div class="story-badge zoho-placed">Placed at Zoho Corp</div>
+        <p class="story-quote">
+          "I was terrified of Zoho Round 2 matrix questions. Kodex AI gave me 40 practice problems with zero-library C rules. I cleared all 4 rounds on day one!"
+        </p>
+        <div class="story-author">
+          <div class="author-avatar">AK</div>
+          <div class="author-meta">
+            <strong>Ananya Krishnan</strong>
+            <span>Software Craftsman • Zoho Tenkasi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Story 2 -->
+      <div class="story-card card-3d-tilt">
+        <div class="story-badge google-placed">Placed at Google L3</div>
+        <p class="story-quote">
+          "The voice studio stress-tested my graph solution just like my real Google interviewer did. The feedback on pauses and edge cases made the difference."
+        </p>
+        <div class="story-author">
+          <div class="author-avatar">SM</div>
+          <div class="author-meta">
+            <strong>Siddharth Menon</strong>
+            <span>Software Engineer L3 • Google Bangalore</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Story 3 -->
+      <div class="story-card card-3d-tilt">
+        <div class="story-badge msft-placed">Placed at Microsoft</div>
+        <p class="story-quote">
+          "Coming from Mechanical branch with 0 coding background in 2nd year, Kodex built my roadmap from scratch. Now earning ₹26 LPA at Microsoft Core!"
+        </p>
+        <div class="story-author">
+          <div class="author-avatar">PK</div>
+          <div class="author-meta">
+            <strong>Praveen Kumar</strong>
+            <span>SDE-1 • Microsoft Cloud & AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP MODAL -->
+  <div class="roadmap-modal-overlay" id="roadmap-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); backdrop-filter:blur(16px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:var(--bg-surface); border:var(--border-glass); border-radius:var(--radius-xl); max-width:680px; width:100%; padding:36px; box-shadow:var(--shadow-glass); position:relative; max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+        <h3 id="modal-title" style="font-family:var(--font-display); font-size:1.4rem; color:var(--text-main);">Target Company Roadmap</h3>
+        <button id="modal-close-btn" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:1.5rem;"><i data-lucide="x"></i></button>
+      </div>
+      <div id="roadmap-timeline-content" style="display:flex; flex-direction:column; gap:16px;"></div>
+      <button class="btn-primary-bold w-full" id="enroll-track-modal-btn" style="margin-top:24px;">
+        <i data-lucide="check-circle-2"></i> Enroll in this 8-Week AI Sprint Free
+      </button>
+    </div>
+  </div>
+
+  <!-- CREATIVE NEO-FOOTER -->
+  <footer class="footer-wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="brand-logo">
+          <div class="logo-icon-wrap">
+            <i data-lucide="cpu"></i>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">Kodex<span class="logo-ai-tag">AI</span></span>
+            <span class="logo-sub">CAREER COGNITIVE OS</span>
+          </div>
+        </a>
+        <p>The next-generation career intelligence platform reversing engineering rubrics for top tier tech firms.</p>
+        <div class="footer-status-pill">
+          <span class="pulse-dot"></span>
+          <span>12ms Latency • All Systems Operational</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Placement Tracks</h5>
+        <ul>
+          <li><a href="#company-tracks">Zoho Software Craftsman</a></li>
+          <li><a href="#company-tracks">Google L3 / L4 Systems</a></li>
+          <li><a href="#company-tracks">Microsoft Cloud & Core SWE</a></li>
+          <li><a href="#company-tracks">Amazon SDE & 16 LPs</a></li>
+          <li><a href="#company-tracks">Uber Distributed Systems</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Interactive Tools</h5>
+        <ul>
+          <li><a href="#voice-studio-section">Dex Voice Mock Studio</a></li>
+          <li><a href="#salary-calculator">CTC Salary Predictor</a></li>
+          <li><a href="#arena-section">3D Live Code Sandbox</a></li>
+          <li><a href="#hackathons">CodePulse 2026 Hackathon</a></li>
+          <li><a href="#interactive-chat">AI Diagnostic Chat</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Institutional</h5>
+        <ul>
+          <li><a href="#colleges">College MOU Partnerships</a></li>
+          <li><a href="#colleges">Dean & TPO Dashboard</a></li>
+          <li><a href="#hall-of-fame">Wall of Achievers</a></li>
+          <li><a href="#">Privacy & Ethical AI Policy</a></li>
+          <li><a href="#">Security & Certifications</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 Kodex AI Inc. Engineered for the top 1% tech engineering aspirants.</span>
+      <span>Empowering 340+ campuses across India & Southeast Asia.</span>
+    </div>
+  </footer>
+
+  <!-- Modal Display CSS Fix -->
+  <style>
+    .roadmap-modal-overlay.open {
+      display: flex !important;
+    }
+    .timeline-step {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .timeline-step .step-number {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-bottom: 4px;
+    }
+    .timeline-step h4 {
+      font-size: 1rem;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .timeline-step p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+
+  <!-- Interactive Scripts -->
+  <script src="three-scene.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
